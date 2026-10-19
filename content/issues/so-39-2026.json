@@ -1,14 +1,13 @@
 {
-  "id": "so-39-2026",
   "number": 39,
-  "year": 2026,
-  "status": "draft",
-  "hero": "/assets/media/5da3a18fd8f4f688.png",
   "hero_top_mm": -76.3,
-  "headline1": "Bộ Công Thương gia hạn rà soát nhà xuất khẩu mới trong vụ việc điều tra chống bán phá giá ván sợi gỗ từ Thái Lan và Trung Quốc",
+  "status": "published",
   "image1": "/assets/media/542c4613864756f2.jpg",
-  "headline2": "Cảnh báo đối với mặt hàng phương tiện di chuyển cá nhân tốc độ thấp xuất khẩu vào thị trường Hoa Kỳ",
   "image2": "/assets/media/96a3ab4bd5ef71a9.png",
+  "hero": "/assets/media/5da3a18fd8f4f688.png",
+  "id": "so-39-2026",
+  "year": 2026,
+  "headline1": "Bộ Công Thương gia hạn rà soát nhà xuất khẩu mới trong vụ việc điều tra chống bán phá giá ván sợi gỗ từ Thái Lan và Trung Quốc",
   "articles": [
     "2026-39-01",
     "2026-39-02",
@@ -20,5 +19,6 @@
     "2026-39-08",
     "2026-39-09",
     "2026-39-10"
-  ]
+  ],
+  "headline2": "Cảnh báo đối với mặt hàng phương tiện di chuyển cá nhân tốc độ thấp xuất khẩu vào thị trường Hoa Kỳ"
 }
