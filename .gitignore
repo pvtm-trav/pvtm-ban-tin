@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Newsletter generated output and local configuration
+public/
+.env.*
+!.env.example

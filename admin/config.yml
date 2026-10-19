@@ -1,0 +1,61 @@
+locale: vi
+backend:
+  name: github
+  repo: pvtm-trav/pvtm-ban-tin
+  branch: main
+publish_mode: editorial_workflow
+media_folder: assets/media
+public_folder: /assets/media
+collections:
+  - name: issues
+    label: Bản tin
+    label_singular: Số bản tin
+    folder: content/issues
+    create: true
+    format: json
+    extension: json
+    identifier_field: id
+    slug: '{{id}}'
+    summary: 'Số {{number}}/{{year}} · {{status}}'
+    fields:
+      - {label: 'Mã bản tin (ví dụ so-40-2026)', name: id, widget: string, pattern: ['^[a-z0-9-]+$', 'Chỉ dùng chữ thường, số và dấu gạch ngang.']}
+      - {label: Số bản tin, name: number, widget: number, value_type: int, min: 1}
+      - {label: Năm, name: year, widget: number, value_type: int, min: 2020}
+      - label: Trạng thái phát hành
+        name: status
+        widget: select
+        options: [{label: Bản nháp, value: draft}, {label: Phát hành trên trang đọc, value: published}]
+        default: draft
+      - {label: Ảnh chính trang bìa, name: hero, widget: image}
+      - {label: 'Vị trí dọc ảnh chính (mm; ảnh mới dùng 0)', name: hero_top_mm, widget: number, value_type: float, default: 0}
+      - {label: Tiêu điểm thứ nhất, name: headline1, widget: text}
+      - {label: Ảnh tiêu điểm thứ nhất, name: image1, widget: image}
+      - {label: Tiêu điểm thứ hai, name: headline2, widget: text}
+      - {label: Ảnh tiêu điểm thứ hai, name: image2, widget: image}
+      - label: Các bài trong số này
+        name: articles
+        widget: relation
+        collection: articles
+        search_fields: [title, id]
+        value_field: id
+        display_fields: [title]
+        multiple: true
+        hint: 'Xếp lần lượt: tin trong nước, tin nước ngoài, thông tin xuất nhập khẩu. Có thể kéo để đổi thứ tự.'
+  - name: articles
+    label: Bài viết
+    label_singular: Bài viết
+    folder: content/articles
+    create: true
+    format: json
+    extension: json
+    identifier_field: title
+    slug: '{{fields.id}}'
+    summary: '{{category}} · {{title}}'
+    fields:
+      - {label: 'Mã bài (ví dụ 2026-40-01)', name: id, widget: string, pattern: ['^[a-z0-9-]+$', 'Chỉ dùng chữ thường, số và dấu gạch ngang.']}
+      - {label: Tiêu đề bài, name: title, widget: text}
+      - {label: Chuyên mục, name: category, widget: select, options: [TIN TRONG NƯỚC, TIN NƯỚC NGOÀI, THÔNG TIN XUẤT NHẬP KHẨU]}
+      - label: Nội dung bài viết
+        name: body_html
+        widget: newsletter_html
+        hint: 'Bảng và biểu đồ gốc được giữ lại. Tiêu đề chính sửa ở ô Tiêu đề bài phía trên. Dán nội dung Word dưới dạng văn bản thuần để tránh lỗi font.'
