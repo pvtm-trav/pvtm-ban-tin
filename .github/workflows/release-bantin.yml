@@ -1,0 +1,54 @@
+name: Prepare approved BanTin release
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Unique tag, e.g. bantin-2026.40.1'
+        required: true
+      approved:
+        description: 'I reviewed the HTML and approve packaging published issues'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  package:
+    if: inputs.approved
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Require at least one published issue
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          assert any(json.loads(p.read_text())['status']=='published' for p in pathlib.Path('content/issues').glob('*.json')), 'No published issue. Drafts cannot be released.'
+          PY
+      - run: python build.py
+      - name: Package
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: python deploy/package.py --tag "$RELEASE_TAG"
+      - name: Create draft release for final inspection
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          gh release create "$RELEASE_TAG" release-output/bantin-site.zip release-output/release.json --draft --target "$GITHUB_SHA" --title "$RELEASE_TAG" --notes 'Reviewed HTML package. Inspect before publishing this release. PDF is included only when present in the build output; this workflow does not generate PDF.'
+  powershell-syntax:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          Get-ChildItem deploy/*.ps1 | ForEach-Object {
+            $tokens=$null; $errors=$null
+            $null=[System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors)
+            if($errors.Count) { throw ($errors | Out-String) }
+          }
