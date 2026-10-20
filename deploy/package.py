@@ -11,6 +11,7 @@ def package(source, output, tag):
         for p in sorted(source.rglob('*')):
             if p.is_symlink(): raise ValueError('Symlink blocked')
             if not p.is_file(): continue
+            if p.name == '.gitkeep': continue
             name=p.relative_to(source).as_posix()
             if not re.fullmatch(r'[a-zA-Z0-9_./-]+',name) or any(x in {'.','..'} for x in name.split('/')) or p.suffix.lower() not in ALLOWED:
                 raise ValueError(f'Blocked path: {name}')
