@@ -54,7 +54,9 @@ def main():
         groups=[{'name':name,'articles':[a for a in articles if a['category']==name]} for name in CATEGORIES]
         ordered=[a['id'] for g in groups for a in g['articles']]
         if ordered!=ids:raise ValueError('Sắp xếp bài theo thứ tự: tin trong nước, tin nước ngoài, thông tin xuất nhập khẩu')
-        pages={};result=template.render(issue=issue,articles=articles,groups=groups,pages=pages)
+        issue_template_path=ROOT/'templates/issues'/f'{issue["id"]}.html.j2'
+        issue_template=env.get_template('issues/'+issue_template_path.name) if issue_template_path.exists() else template
+        pages={};result=issue_template.render(issue=issue,articles=articles,groups=groups,pages=pages)
         # Root-relative asset paths are converted for local HTML and project sub-path hosting.
         result=result.replace('"/assets/','"assets/').replace('url(/assets/','url(assets/')
         filename=issue['id']+'.html';(out/filename).write_text(result,encoding='utf-8')
@@ -64,7 +66,7 @@ def main():
                 if font.lower() not in family.lower():raise RuntimeError(f'Cần cài font {font} hợp lệ trước khi xuất PDF; hiện hệ thống chọn {family}.')
             from weasyprint import HTML
             document=HTML(filename=str(out/filename)).render();pages={k:i+1 for i,p in enumerate(document.pages) for k in p.anchors}
-            result=template.render(issue=issue,articles=articles,groups=groups,pages=pages).replace('"/assets/','"assets/').replace('url(/assets/','url(assets/')
+            result=issue_template.render(issue=issue,articles=articles,groups=groups,pages=pages).replace('"/assets/','"assets/').replace('url(/assets/','url(assets/')
             (out/filename).write_text(result,encoding='utf-8');HTML(filename=str(out/filename)).write_pdf(out/(issue['id']+'.pdf'))
         cards.append(f'<li><a href="{filename}">Số {issue["number"]}/{issue["year"]}</a>'+(' · BẢN NHÁP' if issue['status']!='published' else '')+'</li>')
     index='<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bản tin PVTM &amp; CBS</title><style>body{max-width:900px;margin:60px auto;padding:24px;font:18px/1.6 Arial;color:#003366}h1{font-size:28px}li{margin:16px 0}a{color:#003366}</style><h1>BẢN TIN PHÒNG VỆ THƯƠNG MẠI &amp; CẢNH BÁO SỚM</h1><ul>'+''.join(cards)+'</ul>'+('' if cards else '<p>Chưa có số bản tin được phát hành.</p>')+'<p><a href="admin/">Đăng nhập quản trị</a></p></html>'
