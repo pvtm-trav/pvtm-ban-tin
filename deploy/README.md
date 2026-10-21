@@ -1,49 +1,33 @@
-# Bộ cập nhật Bản tin v1
+# Bản tin: xem thử → duyệt → xuất bản
 
-Chỉ ghi `C:\Web\bantin\ban-tin-moi`. Không sửa website gốc, không xóa file cũ, không triển khai web.config. Tác vụ không thực hiện nhập Word/MD; phần agent biên tập sẽ triển khai sau.
+**Chưa kích hoạt trên IIS.** Mã này cần được rà PR, chạy CI Windows PowerShell 5.1, và thử trên máy chủ trước khi bật hai task. Bản snapshot từ 21/10/2026 ghi số 21 đã được duyệt về thiết kế, nhưng chưa xác nhận lên website chính.
 
-## Phạm vi đã kiểm tra và giới hạn
+| Kênh | Release | Đích IIS | Điều kiện |
+|---|---|---|---|
+| Preview | `preview-<commit SHA>`, prerelease | `C:\Web\bantin\ban-tin-moi` | Push lên `main` → tự build cả draft và published |
+| Production | `bantin-<năm>.<số>-<12 ký tự SHA>` | `C:\Web\bantin` | Người duyệt chỉ định đúng issue và **toàn bộ SHA đã xem** trong workflow Publish approved BanTin |
 
-Đây là bộ mã chuẩn bị triển khai, chưa chạy trên máy chủ thật. Môi trường phát triển không có PowerShell; workflow cung cấp bước kiểm tra cú pháp bằng Windows PowerShell 5.1, cần xem kết quả khi chạy trên GitHub. Chép từng file không bảo đảm cả site thay đổi đồng thời; index được chép cuối và có rollback khi lỗi được bắt. Nếu mất điện/tiến trình bị dừng, dùng journal và bản sao lưu để khôi phục thủ công. Không xóa downloads/backups tự động trong v1; quản trị viên theo dõi dung lượng. SHA-256 kiểm tra tính toàn vẹn; quyền phát hành GitHub là ranh giới tin cậy, không phải chữ ký độc lập.
+Gói production chỉ dựng issue có `status: published`. Cả hai gói đều loại `admin/`, `web.config`, `/ban-tin-moi/` và `/oauth/`; agent cũng chặn các đường dẫn này. Tệp không thuộc gói được giữ lại. Vì vậy không dùng agent để dọn tệp cũ. Mỗi release có ZIP, SHA-256 từng tệp, commit và channel trong `release.json`. SHA-256 xác nhận tính toàn vẹn tải về, không thay thế quyền phát hành GitHub.
 
-## Chuẩn bị một lần
+## Thiết lập một lần trên IIS
 
-1. Giữ nguyên `C:\Web\bantin`. Tạo `C:\BanTinAgent` và `C:\Web\bantin\ban-tin-moi`.
-2. Tải Update-BanTin.ps1 và Install-Task.ps1 từ đúng commit đã kiểm tra vào C:\BanTinAgent. Đọc mã trước khi chạy. Không đặt script/bản sao lưu trong thư mục web.
-3. Tạo tài khoản Windows riêng. Cấp Read & Execute lên script; Modify lên downloads, backups, logs và ban-tin-moi; quyền Log on as a batch job. IIS được Read & Execute ban-tin-moi. Không cấp Modify website gốc. Khóa quyền sửa script cho quản trị viên. File agent.lock ở WorkRoot cần được tạo trước và cấp quyền ghi cho tài khoản tác vụ; tài khoản cũng cần quyền tạo thư mục làm việc trong lần thiết lập đầu hoặc quản trị viên tạo sẵn.
-4. Chạy Check bằng chính tài khoản tác vụ. Chưa có release hợp lệ thì lỗi 404 là dự kiến, chưa được coi là thử triển khai thành công.
+1. Đối chiếu read-only Physical path thực tế, ACL, trạng thái task cũ `BanTinAgent-Publish` và sao lưu webroot. Dừng task cũ trước khi cài bản mới; nó nhắm sai mục đích của kênh production.
+2. Tải `Update-BanTin.ps1`, `Install-Task.ps1` từ commit đã rà vào `C:\BanTinAgent`. Khóa quyền sửa mã cho quản trị viên. Tạo tài khoản tác vụ riêng có Modify trên `C:\BanTinAgent\downloads`, `backups`, `logs`, `agent.lock` và đúng thư mục đích. Tài khoản production cần Modify vào webroot nhưng không cần quyền Administrator; script không chạm các thư mục được bảo vệ. Nên tách hai tài khoản Windows để giới hạn quyền. Cả hai có quyền Log on as a batch job; IIS App Pool chỉ đọc.
+3. Tạo hai task **Disabled** bằng `Install-Task.ps1 -Channel Preview` và `-Channel Production` (chạy PowerShell nâng quyền, nhập credential tại máy chủ). Trước khi bật task, chạy `Update-BanTin.ps1 -Mode Check -Channel Preview` và `-Mode Check -Channel Production` dưới đúng tài khoản task. Nếu production chưa có release schema 2, Check sẽ báo lỗi; đây là chặn có chủ đích.
+4. Sau khi có preview release mới, chạy thủ công `-Mode Publish -Channel Preview`, kiểm tra URL `/ban-tin-moi/` và ảnh số 21 qua HTTP. Khi đã thử rollback, bật `BanTinAgent-Preview`. Không bật task production lúc này.
+5. Người duyệt kiểm tra trang preview và ghi lại full SHA tương ứng với release `preview-<SHA>`. Chạy workflow **Publish approved BanTin** trên `main`, nhập `so-21-2026`, SHA đó và tick approved. Workflow từ chối nếu `main` thay đổi kể từ lúc xem. Nó xuất release chính thức trực tiếp, không đòi tag hay bấm Publish release.
+6. Chạy `-Mode Check -Channel Production`, xem danh sách ADD/UPDATE, kiểm tra backup và URL đích, rồi `-Mode Publish -Channel Production`. Xác minh trang `/` và `/so-21-2026.html` công khai trước khi bật `BanTinAgent-Production`. Lần sau release được task lấy tự động theo chu kỳ 5 phút.
 
-```powershell
-powershell.exe -NoProfile -File C:\BanTinAgent\Update-BanTin.ps1 -Mode Check
-```
-
-Check chỉ tải/xác minh và hiển thị ADD/UPDATE; không ghi website. Publish kiểm tra lại gói trước khi ghi:
-
-```powershell
-powershell.exe -NoProfile -File C:\BanTinAgent\Update-BanTin.ps1 -Mode Publish
-```
-
-Chỉ thử Publish sau khi đã kiểm tra danh sách Check. Nếu execution policy chặn script, thực hiện quy trình ký/cho phép script của đơn vị; không tắt chính sách toàn máy.
-
-## Tạo gói đã duyệt
-
-Sau khi PR được hợp nhất vào main: Actions → Prepare approved BanTin release → Run workflow; nhập tag duy nhất `bantin-2026.40.1`, đánh dấu đã duyệt. Chương trình chỉ đóng gói số có status published; không dùng --include-drafts. Hiện số 39 trong kho là draft nên phải duyệt nội dung và đổi trạng thái trước khi tạo gói. Không tự đổi trạng thái số 39 trong thay đổi này.
-
-Workflow tạo **Draft Release** chứa bantin-site.zip và release.json. Kiểm tra gói rồi Publish release (không chọn prerelease). Chỉ release chính thức với tag bantin-* được tác vụ nhận. Không tạo release khác loại trong cùng kho: endpoint latest dùng chung cho toàn repo. Cần kiểm tra thêm tải GitHub Release assets từ máy chủ; thành công tải raw README chưa chứng minh tải được release-assets qua redirect.
-
-Gói HTML dùng đường dẫn tương đối của build.py, chạy trong /ban-tin-moi/. Trang Decap có thể có URL tuyệt đối /assets khi biên tập/xem trước; xác thực và cấu hình CMS thư mục con chưa hoàn tất. Không coi trang admin là đã vận hành. Workflow này chưa xuất PDF; cần máy dựng có font hợp lệ và kiểm tra PDF trước khi bổ sung vào gói.
-
-## Scheduled Task mỗi 5 phút
-
-Chạy Install-Task.ps1 trong PowerShell nâng quyền; nhập thông tin tài khoản tại hộp thoại cục bộ. Script tạo task **Disabled**. Sau khi Check và Publish thủ công thành công bằng đúng tài khoản:
+Ví dụ lệnh kiểm tra (đường dẫn đã ghi trong bàn giao; xác minh trước khi chạy):
 
 ```powershell
-Enable-ScheduledTask -TaskName BanTinAgent-Publish
-Get-ScheduledTaskInfo -TaskName BanTinAgent-Publish
+& 'C:\BanTinAgent\Update-BanTin.ps1' -Mode Check -Channel Preview
+& 'C:\BanTinAgent\Update-BanTin.ps1' -Mode Check -Channel Production
+Get-ScheduledTask -TaskName 'BanTinAgent*' | Select-Object TaskName,State
 ```
 
-Task dùng RunLevel Limited, không chạy chồng. Dừng bằng Disable-ScheduledTask. Không cần restart IIS. Log: C:\BanTinAgent\logs. Mỗi lần vẫn xác minh nội dung thật; nếu trùng hash thì không ghi website. HTTP kiểm tra tính sẵn có riêng, chưa so sánh nội dung trả về qua HTTP. Lỗi HTTP được ghi log để xem xét, không tự rollback chỉ vì lỗi mạng.
+**Giới hạn hiện tại:** bước duyệt là một lần chạy workflow với issue ID và SHA, chưa có nút duyệt trong CMS. Agent không tự chứng minh HTML/ảnh trông đúng; HTTP check chỉ báo status. Không có kết nối điều khiển IIS từ môi trường này; phải xác minh thực tế trên máy chủ. Preview không tự thay thế nội dung production. ZIP không chứa PDF nếu build chưa tạo PDF.
 
 ## Khôi phục
 
-Tắt task trước. Trong backups/<lần cập nhật>/journal.json: UPDATE có bản cũ theo cùng đường dẫn; ADD là file mới tạo. Sao chép bản cũ của UPDATE về ban-tin-moi; chỉ xóa ADD của lần đó nếu chắc chắn chưa bị bản phát hành sau sửa. Không phục hồi vào C:\Web\bantin gốc. Kiểm tra site rồi mới bật lại task. Nếu bản phát hành lỗi đã công khai, sửa và tạo tag mới trước khi bật task, tránh tác vụ áp lại bản lỗi.
+Tắt task tương ứng, đọc `C:\BanTinAgent\backups\<lần cập nhật>\journal.json`, khôi phục UPDATE từ bản sao lưu và xóa riêng ADD của lần đó sau khi kiểm tra không bị bản sau dùng chung. Giữ nguyên `web.config` và các thư mục hệ thống. Sửa nguồn, tạo commit/release mới trước khi bật lại task để không tự áp lại bản lỗi. Log nằm trong `C:\BanTinAgent\logs`.

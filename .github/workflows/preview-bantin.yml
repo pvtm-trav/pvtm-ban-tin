@@ -1,0 +1,23 @@
+name: Prepare BanTin preview
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python build.py --include-drafts
+      - name: Package preview
+        run: python deploy/package.py --channel preview --commit "$GITHUB_SHA" --tag "preview-$GITHUB_SHA"
+      - name: Publish preview prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "preview-$GITHUB_SHA" release-output/bantin-site.zip release-output/release.json --prerelease --target "$GITHUB_SHA" --title "Preview $GITHUB_SHA" --notes 'For /ban-tin-moi/ only. Not approved for the main website.'

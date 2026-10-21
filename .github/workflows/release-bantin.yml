@@ -1,12 +1,15 @@
-name: Prepare approved BanTin release
+name: Publish approved BanTin
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: 'Unique tag, e.g. bantin-2026.40.1'
+      issue_id:
+        description: 'Approved issue ID, e.g. so-21-2026'
+        required: true
+      approved_commit:
+        description: 'Full 40-character commit SHA reviewed at /ban-tin-moi/'
         required: true
       approved:
-        description: 'I reviewed the HTML and approve packaging published issues'
+        description: 'I approve this issue at exactly this commit for the main website'
         type: boolean
         default: false
 permissions:
@@ -19,27 +22,37 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Require at least one published issue
+      - name: Verify approval pins current main commit and published issue
+        env:
+          ISSUE_ID: ${{ inputs.issue_id }}
+          APPROVED_COMMIT: ${{ inputs.approved_commit }}
         run: |
           python - <<'PY'
-          import json,pathlib
-          assert any(json.loads(p.read_text())['status']=='published' for p in pathlib.Path('content/issues').glob('*.json')), 'No published issue. Drafts cannot be released.'
+          import json, os, pathlib, re, subprocess
+          sha = subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip()
+          assert re.fullmatch(r'[a-f0-9]{40}',os.environ['APPROVED_COMMIT'])
+          assert sha == os.environ['APPROVED_COMMIT'], 'Main changed after review: inspect preview again.'
+          issue_id=os.environ['ISSUE_ID']
+          assert re.fullmatch(r'so-[0-9]+-[0-9]{4}',issue_id)
+          issue=json.loads((pathlib.Path('content/issues')/(issue_id+'.json')).read_text())
+          assert issue['id']==issue_id and issue['status']=='published'
+          with open(os.environ['GITHUB_ENV'],'a') as f:
+              f.write(f'RELEASE_TAG=bantin-{issue["year"]}.{issue["number"]}-{sha[:12]}\n')
           PY
       - run: python build.py
-      - name: Package
-        env:
-          RELEASE_TAG: ${{ inputs.tag }}
-        run: python deploy/package.py --tag "$RELEASE_TAG"
-      - name: Create draft release for final inspection
+      - name: Package approved commit
+        run: python deploy/package.py --channel production --commit "$GITHUB_SHA" --tag "$RELEASE_TAG"
+      - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: ${{ inputs.tag }}
         run: |
-          gh release create "$RELEASE_TAG" release-output/bantin-site.zip release-output/release.json --draft --target "$GITHUB_SHA" --title "$RELEASE_TAG" --notes 'Reviewed HTML package. Inspect before publishing this release. PDF is included only when present in the build output; this workflow does not generate PDF.'
+          gh release create "$RELEASE_TAG" release-output/bantin-site.zip release-output/release.json --target "$GITHUB_SHA" --title "$RELEASE_TAG" --notes "Approved ${{ inputs.issue_id }} at commit $GITHUB_SHA. IIS production agent polls this release."
   powershell-syntax:
     runs-on: windows-latest
     steps:
