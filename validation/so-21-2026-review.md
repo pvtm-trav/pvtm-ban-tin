@@ -1,7 +1,7 @@
 # Bản tin Phòng vệ thương mại và Cảnh báo sớm số 21 năm 2026
 
-Trạng thái: BẢN NHÁP để rà soát, chưa sẵn sàng phát hành công khai.
-Ngày phát hành: CHƯA XÁC NHẬN. Không suy đoán từ tên tệp Word.
+Trạng thái: BẢN NHÁP để rà soát thiết kế, chưa cập nhật IIS.
+Ngày phát hành: để trống theo chỉ đạo của người dùng; trên bìa chỉ ghi 21.2026.
 
 ## Mở bản tin
 
@@ -16,10 +16,10 @@ Hai tin bìa được chọn nguyên tiêu đề: tin tiếp nhận hồ sơ tha
 
 ## Cần bổ sung và xác nhận trước phát hành
 
-- Ảnh chính bìa; ảnh tin thanh thép dự ứng lực; ảnh tin EU bảo vệ thị trường thép. Word không có ảnh minh họa. Các ô chờ là phần tử HTML, không phải liên kết ảnh hỏng. Không tái sử dụng ảnh nội dung số 39.
-- Ngày phát hành.
-- Bài In-đô-nê-xi-a, đoạn bắt đầu “Theo số liệu của KADI”: vừa ghi tổng nhập khẩu từ Trung Quốc 117.036 tấn, vừa ghi nhập khẩu từ Trung Quốc 59.378 tấn. Giữ nguyên, cần xác nhận phạm vi của số tổng.
-- Bài chuyên đề EU, đoạn bắt đầu “Năm 2024, Hàn Quốc”: Ấn Độ và Việt Nam đều được ghi xếp thứ tám; bảng thể hiện Việt Nam thấp hơn Ấn Độ. Đoạn về Việt Nam năm 2024 tiếp tục ghi xếp thứ tám. Giữ nguyên, không tự sửa.
+- Đã dùng ba ảnh người dùng cung cấp: cảng biển (bìa), cáp thép (tin nổi bật 1), cuộn thép (tin nổi bật 2). Ảnh giữ tỷ lệ trong khung mẫu.
+- Ngày phát hành được cố ý để trống.
+- Bài In-đô-nê-xi-a, đoạn bắt đầu “Theo số liệu của KADI”: vừa ghi tổng nhập khẩu từ Trung Quốc 117.036 tấn, vừa ghi nhập khẩu từ Trung Quốc 59.378 tấn. Giữ nguyên văn tác giả theo chỉ đạo; người thiết kế không sửa dữ kiện.
+- Bài chuyên đề EU, đoạn bắt đầu “Năm 2024, Hàn Quốc”: Ấn Độ và Việt Nam đều được ghi xếp thứ tám; bảng thể hiện Việt Nam thấp hơn Ấn Độ. Đoạn về Việt Nam năm 2024 tiếp tục ghi xếp thứ tám. Giữ nguyên văn tác giả theo chỉ đạo; người thiết kế không sửa dữ kiện.
 - Các bản tin được chuyển nguyên văn, chưa xác minh nghiệp vụ với nguồn bên ngoài.
 
 ## Bảng và biểu đồ
@@ -33,7 +33,7 @@ CSS được sao riêng cho số 21. Cỡ chữ bảng 10pt để đọc đủ s
 ## Cập nhật repository
 
 Kho đã xác nhận bằng README hiện hành: pvtm-trav/pvtm-ban-tin, nhánh main. Số 21 nằm ở content/issues/so-21-2026.json và 8 bài content/articles/2026-21-*.json, trạng thái draft. Mẫu riêng templates/issues/so-21-2026.html.j2 cùng tài nguyên assets/issues/so-21-2026/. build.py chọn mẫu riêng theo mã số khi có, giữ mẫu dùng chung và các số cũ.
-Dựng xem trước: python build.py --include-drafts. Danh mục xem trước tự có số 21 kèm nhãn BẢN NHÁP. Dựng thông thường không đưa bản nháp vào trang đọc. Chỉ chuyển published sau khi xử lý các điểm cần xác nhận và bổ sung ảnh/ngày.
+Dựng xem trước: python build.py --include-drafts. Danh mục xem trước tự có số 21 kèm nhãn BẢN NHÁP. Dựng thông thường không đưa bản nháp vào trang đọc. Chỉ chuyển published khi người dùng duyệt bản thiết kế và chỉ đạo phát hành.
 Quy trình IIS hiện dùng gói GitHub Release. Commit hoặc PR chưa phải cập nhật IIS; workflow release chạy thủ công và tạo draft release. Không tự đổi DNS, SSL hoặc cấu hình IIS.
 
 ## Kiểm tra
