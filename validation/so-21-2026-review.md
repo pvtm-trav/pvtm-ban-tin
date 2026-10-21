@@ -1,6 +1,6 @@
 # Bản tin Phòng vệ thương mại và Cảnh báo sớm số 21 năm 2026
 
-Trạng thái: BẢN NHÁP để rà soát thiết kế, chưa cập nhật IIS.
+Trạng thái dữ liệu: published để đưa số 21 vào danh mục bản dựng công khai; chưa cập nhật IIS và chưa xác minh website.
 Ngày phát hành: để trống theo chỉ đạo của người dùng; trên bìa chỉ ghi 21.2026.
 
 ## Mở bản tin
@@ -32,8 +32,8 @@ CSS được sao riêng cho số 21. Cỡ chữ bảng 10pt để đọc đủ s
 
 ## Cập nhật repository
 
-Kho đã xác nhận bằng README hiện hành: pvtm-trav/pvtm-ban-tin, nhánh main. Số 21 nằm ở content/issues/so-21-2026.json và 8 bài content/articles/2026-21-*.json, trạng thái draft. Mẫu riêng templates/issues/so-21-2026.html.j2 cùng tài nguyên assets/issues/so-21-2026/. build.py chọn mẫu riêng theo mã số khi có, giữ mẫu dùng chung và các số cũ.
-Dựng xem trước: python build.py --include-drafts. Danh mục xem trước tự có số 21 kèm nhãn BẢN NHÁP. Dựng thông thường không đưa bản nháp vào trang đọc. Chỉ chuyển published khi người dùng duyệt bản thiết kế và chỉ đạo phát hành.
+Kho đã xác nhận bằng README hiện hành: pvtm-trav/pvtm-ban-tin, nhánh main. Số 21 nằm ở content/issues/so-21-2026.json và 8 bài content/articles/2026-21-*.json, trạng thái published. Mẫu riêng templates/issues/so-21-2026.html.j2 cùng tài nguyên assets/issues/so-21-2026/. build.py chọn mẫu riêng theo mã số khi có, giữ mẫu dùng chung và các số cũ.
+Dựng bản công khai: python build.py. Danh mục gồm số 39 và số 21. Việc đổi trạng thái dữ liệu chưa đồng nghĩa đã triển khai lên IIS.
 Quy trình IIS hiện dùng gói GitHub Release. Commit hoặc PR chưa phải cập nhật IIS; workflow release chạy thủ công và tạo draft release. Không tự đổi DNS, SSL hoặc cấu hình IIS.
 
 ## Kiểm tra
