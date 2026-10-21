@@ -1,11 +1,12 @@
 #requires -Version 5.1
 [CmdletBinding()]
 param([ValidateSet('Check','Publish')][string]$Mode='Check',
+      [ValidateSet('Preview','Production')][string]$Channel='Preview',
       [string]$WorkRoot='C:\BanTinAgent', [string]$ReleaseTag)
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-$Target='C:\Web\bantin\ban-tin-moi'
+$Target=if($Channel -eq 'Production') {'C:\Web\bantin'} else {'C:\Web\bantin\ban-tin-moi'}
 $Repo='pvtm-trav/pvtm-ban-tin'
 $headers=@{'User-Agent'='BanTinAgent/1.0'}
 New-Item -ItemType Directory -Force -Path $WorkRoot | Out-Null
@@ -38,9 +39,14 @@ try {
         return $full
     }
     $endpoint='https://api.github.com/repos/'+$Repo+'/releases/latest'
+    if($Channel -eq 'Preview' -and -not $ReleaseTag) { $endpoint='https://api.github.com/repos/'+$Repo+'/releases?per_page=30' }
     if($ReleaseTag) { $endpoint='https://api.github.com/repos/'+$Repo+'/releases/tags/'+[uri]::EscapeDataString($ReleaseTag) }
-    $release=Get-Json $endpoint
-    if($release.draft -or $release.prerelease -or $release.tag_name -notmatch '^bantin-[a-zA-Z0-9.-]+$') { throw 'Not an approved production release' }
+    $response=Get-Json $endpoint
+    $release=if($Channel -eq 'Preview' -and -not $ReleaseTag) { @($response | Where-Object { -not $_.draft -and $_.prerelease -and $_.tag_name -match '^preview-[a-f0-9]{40}$' } | Select-Object -First 1)[0] } else { $response }
+    if($null -eq $release) { throw 'No matching release' }
+    if($Channel -eq 'Production') {
+        if($release.draft -or $release.prerelease -or $release.tag_name -notmatch '^bantin-[0-9]{4}\.[0-9]+-[a-f0-9]{12}$') { throw 'Not an approved production release' }
+    } elseif($release.draft -or -not $release.prerelease -or $release.tag_name -notmatch '^preview-[a-f0-9]{40}$') { throw 'Not a preview release' }
     $session=Join-Path $WorkRoot ('downloads\'+[guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $session | Out-Null
     $meta=@($release.assets | Where-Object name -eq 'release.json')
@@ -48,13 +54,17 @@ try {
     if($meta.Count -ne 1 -or $bundle.Count -ne 1) { throw 'Release missing package/manifest' }
     Download $meta[0].browser_download_url (Join-Path $session 'release.json')
     $manifest=Get-Content -LiteralPath (Join-Path $session 'release.json') -Raw | ConvertFrom-Json
-    if($manifest.schema -ne 1 -or $manifest.tag -ne $release.tag_name -or $manifest.zip_sha256 -notmatch '^[a-f0-9]{64}$') { throw 'Invalid manifest' }
+    $expectedChannel=if($Channel -eq 'Production') {'production'} else {'preview'}
+    if($manifest.schema -ne 2 -or $manifest.channel -ne $expectedChannel -or $manifest.commit -notmatch '^[a-f0-9]{40}$' -or $manifest.tag -ne $release.tag_name -or $manifest.zip_sha256 -notmatch '^[a-f0-9]{64}$') { throw 'Invalid manifest' }
+    if($Channel -eq 'Preview' -and $release.tag_name -ne ('preview-'+$manifest.commit)) { throw 'Preview commit mismatch' }
+    if($Channel -eq 'Production' -and -not $release.tag_name.EndsWith($manifest.commit.Substring(0,12))) { throw 'Approval commit mismatch' }
     $zip=Join-Path $session 'site.zip'; Download $bundle[0].browser_download_url $zip
     if((Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant() -ne $manifest.zip_sha256) { throw 'ZIP checksum mismatch' }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $stage=Join-Path $session 'stage'; New-Item -ItemType Directory -Path $stage | Out-Null
     $expected=@{}
     foreach($f in $manifest.files) {
+        if($f.path -eq 'web.config' -or $f.path -match '^(admin|ban-tin-moi|oauth)/') { throw "Protected website path: $($f.path)" }
         $null=Safe-Path $stage $f.path
         if($expected.ContainsKey($f.path) -or $f.sha256 -notmatch '^[a-f0-9]{64}$') { throw 'Duplicate path or invalid hash' }
         $expected[$f.path]=$f
@@ -83,7 +93,7 @@ try {
         elseif((Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash.ToLowerInvariant() -ne $f.sha256) { $changes+=[pscustomobject]@{path=$f.path;action='UPDATE'} }
     }
     $changes | Format-Table -AutoSize
-    Log "$Mode tag=$($release.tag_name) changes=$($changes.Count)"
+    Log "$Mode channel=$Channel commit=$($manifest.commit) tag=$($release.tag_name) changes=$($changes.Count)"
     if($Mode -eq 'Check') { Log 'Check complete. Website unchanged.'; return }
     if($changes.Count -eq 0) { Log 'Already matches release; no changes.'; return }
     $backup=Join-Path $WorkRoot ('backups\'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N'))
@@ -127,7 +137,8 @@ try {
     Log "Published $($release.tag_name). Backup=$backup"
     # HTTP availability is reported separately; a proxy failure must not undo valid files.
     try {
-        $r=Invoke-WebRequest -Uri 'https://bantin.trav.gov.vn/ban-tin-moi/' -UseBasicParsing -TimeoutSec 30
+        $url=if($Channel -eq 'Production') {'https://bantin.trav.gov.vn/'} else {'https://bantin.trav.gov.vn/ban-tin-moi/'}
+        $r=Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 30
         Log "HTTP check: $($r.StatusCode)"
     } catch { Log "HTTP check requires review: $($_.Exception.Message)" }
 } catch { Write-Error $_; exit 1 }
