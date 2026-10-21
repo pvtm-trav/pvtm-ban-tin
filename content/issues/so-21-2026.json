@@ -1,0 +1,22 @@
+{
+  "id": "so-21-2026",
+  "number": 21,
+  "year": 2026,
+  "status": "published",
+  "release_date": null,
+  "headline1": "Tiếp nhận hồ sơ yêu cầu điều tra chống bán phá giá đối với thanh thép dự ứng lực nhập khẩu từ Trung Quốc",
+  "headline2": "EU thông qua quy định mới nhằm tăng cường bảo vệ thị trường thép",
+  "hero": "/assets/issues/so-21-2026/cover.jpg",
+  "image1": "/assets/issues/so-21-2026/feature-1.png",
+  "image2": "/assets/issues/so-21-2026/feature-2.jpg",
+  "articles": [
+    "2026-21-01",
+    "2026-21-02",
+    "2026-21-03",
+    "2026-21-04",
+    "2026-21-05",
+    "2026-21-06",
+    "2026-21-07",
+    "2026-21-08"
+  ]
+}
