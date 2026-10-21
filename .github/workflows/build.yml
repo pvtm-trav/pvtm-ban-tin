@@ -33,3 +33,24 @@ jobs:
             $null=[System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors)
             if($errors.Count) { throw ($errors | Out-String) }
           }
+  preview-release:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    needs: [build, powershell-syntax]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python build.py --include-drafts
+      - run: python deploy/package.py --channel preview --commit "$GITHUB_SHA" --tag "preview-$GITHUB_SHA"
+      - name: Publish preview prerelease once per commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "preview-$GITHUB_SHA" >/dev/null 2>&1; then
+            gh release create "preview-$GITHUB_SHA" release-output/bantin-site.zip release-output/release.json --prerelease --target "$GITHUB_SHA" --title "Preview $GITHUB_SHA" --notes 'For /ban-tin-moi/ only. Not approved for the main website.'
+          fi
