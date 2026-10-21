@@ -4,7 +4,7 @@
 
 | Kênh | Release | Đích IIS | Điều kiện |
 |---|---|---|---|
-| Preview | `preview-<commit SHA>`, prerelease | `C:\Web\bantin\ban-tin-moi` | Push lên `main` → tự build cả draft và published |
+| Preview | `preview-<commit SHA>`, prerelease | `C:\Web\bantin\ban-tin-moi` | Workflow kiểm tra hiện có chạy khi push lên `main`, rồi tự build cả draft và published |
 | Production | `bantin-<năm>.<số>-<12 ký tự SHA>` | `C:\Web\bantin` | Người duyệt chỉ định đúng issue và **toàn bộ SHA đã xem** trong workflow Publish approved BanTin |
 
 Gói production chỉ dựng issue có `status: published`. Cả hai gói đều loại `admin/`, `web.config`, `/ban-tin-moi/` và `/oauth/`; agent cũng chặn các đường dẫn này. Tệp không thuộc gói được giữ lại. Vì vậy không dùng agent để dọn tệp cũ. Mỗi release có ZIP, SHA-256 từng tệp, commit và channel trong `release.json`. SHA-256 xác nhận tính toàn vẹn tải về, không thay thế quyền phát hành GitHub.
