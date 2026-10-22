@@ -1,0 +1,32 @@
+issue_id: 2026-01
+issue_number: 1
+year: 2026
+status: draft
+preview_filename: so-01-2026.html
+source_document: 15012026_BT01_Draft.docx
+release_date: null
+articles: 11
+tables: 2
+charts: 5
+sections:
+  - TIN TRONG NƯỚC
+  - TIN NƯỚC NGOÀI
+  - THÔNG TIN XUẤT NHẬP KHẨU
+featured:
+  - Vương quốc Anh ban hành kết luận rà soát hạn ngạch thuế quan đối với sản phẩm thép cây nhập khẩu từ Việt Nam
+  - Tình hình xuất khẩu mặt hàng đồ nội thất phòng ngủ vào thị trường Hoa Kỳ
+assets:
+  cover: null
+  feature_1: null
+  feature_2: null
+qa:
+  rendered_a4_pages: 30
+  preview_sha256: eab389daebf52de2fef60f05465ee20ac931a43048579a3e88916806be79ebbd
+warnings:
+  - Chưa có ảnh bìa được xác nhận.
+  - Chưa có hai ảnh nổi bật được xác nhận.
+  - Ngày phát hành chưa được xác nhận.
+  - Tiêu đề EU/lốp xe trong Word có chuỗi "hủy bỏkhông áp dụng"; giữ nguyên ý nguồn, cần người duyệt xác nhận cách sửa.
+  - Word ghi nhập khẩu Hoa Kỳ năm 2023 đạt 3,3 tỷ USD, năm 2024 đạt 3,5 tỷ USD nhưng câu mô tả ghi "tiếp tục giảm".
+  - Word ghi các nguồn cung ứng khác năm 2023 đạt 255,5 nghìn USD và chiếm 7,8%; cần kiểm tra đơn vị.
+  - Đoạn về xuất khẩu đồ nội thất phòng ngủ của Việt Nam ghi "sang thị trường EU" dù ngữ cảnh là Hoa Kỳ; chưa tự sửa.

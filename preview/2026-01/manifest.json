@@ -1,0 +1,13 @@
+{
+  "issue_id": "2026-01",
+  "channel": "Preview",
+  "status": "draft",
+  "artifact": "so-01-2026.html",
+  "sha256": "eab389daebf52de2fef60f05465ee20ac931a43048579a3e88916806be79ebbd",
+  "a4_pages": 30,
+  "articles": 11,
+  "tables": 2,
+  "charts": 5,
+  "release_date": null,
+  "missing_assets": ["cover", "feature_1", "feature_2"]
+}
