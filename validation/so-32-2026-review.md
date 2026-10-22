@@ -67,3 +67,15 @@ Sửa lỗi hiển nhiên sản phầm → sản phẩm. Giữ mọi số liệu
 ## Ranh giới triển khai
 
 Chỉ tạo release Preview. Chưa có quyền điều khiển IIS trực tiếp; lệnh Check rồi Publish kênh Preview do người có quyền máy chủ chạy. Không nói đã cập nhật IIS khi chưa có log. Không tạo Production trước khi có duyệt rõ ràng đúng SHA cuối.
+
+## Cập nhật ảnh ngày 22/10/2026
+
+Đã thay đủ ba ô chờ bìa bằng ảnh người phụ trách gửi:
+
+| Tên tệp | Vị trí | Chú thích |
+|---|---|---|
+| bt32-2026-bia.png | Ảnh lớn bìa | Cảng biển và container |
+| bt32-2026-headline-1-thep-khong-gi.jpg | Headline 1 | Cuộn thép; ảnh minh họa người phụ trách chỉ định |
+| bt32-2026-headline-2-vai-det-thoi.jpg | Headline 2 | Khung dệt và con thoi; không suy ra phạm vi khổ vải từ ảnh |
+
+Ghi chú thiếu ba ảnh ở phần trước là lịch sử và đã được giải quyết. Nội dung, số liệu, ngày phát hành và trạng thái draft giữ nguyên. Chỉ tạo Preview mới, chưa phát hành Production.
