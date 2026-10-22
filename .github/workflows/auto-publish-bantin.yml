@@ -1,0 +1,57 @@
+name: Publish BanTin after approval
+on:
+  workflow_run:
+    workflows: ['Kiểm tra và đóng gói bản tin']
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  production:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Detect isolated approval
+        env:
+          APPROVED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: python deploy/verify_approval.py
+      - name: Verify both preview releases
+        if: env.APPROVAL_PRESENT == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APPROVED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          test "$(git ls-remote https://github.com/${GITHUB_REPOSITORY}.git refs/heads/main | cut -f1)" = "$APPROVED_SHA" || {
+            echo 'Main moved; publish the newly reviewed commit only.'; exit 1;
+          }
+          gh release view "preview-$PREVIEW_PARENT" >/dev/null
+          gh release view "preview-$APPROVED_SHA" >/dev/null
+      - if: env.APPROVAL_PRESENT == 'true'
+        run: python build.py
+      - name: Package approved issue
+        if: env.APPROVAL_PRESENT == 'true'
+        env:
+          APPROVED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: python deploy/package.py --channel production --commit "$APPROVED_SHA" --tag "$RELEASE_TAG"
+      - name: Publish production release
+        if: env.APPROVAL_PRESENT == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APPROVED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          gh release create "$RELEASE_TAG" release-output/bantin-site.zip release-output/release.json \
+            --target "$APPROVED_SHA" --title "$RELEASE_TAG" \
+            --notes "Approved $ISSUE_ID after preview $PREVIEW_PARENT. Production agent polls this release."
