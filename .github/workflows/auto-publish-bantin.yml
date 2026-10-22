@@ -7,10 +7,9 @@ permissions:
   contents: read
 jobs:
   production:
-    if: >-
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.event == 'push' &&
-      github.event.workflow_run.head_branch == 'main'
+    # Publication requires the final Preview SHA to be reviewed explicitly.
+    # Use release-bantin.yml (Publish approved BanTin) after that approval.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
