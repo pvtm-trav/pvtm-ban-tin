@@ -1,3 +1,5 @@
 Jinja2==3.1.6
 lxml>=5.3,<7
 PyYAML>=6,<7
+jsonschema>=4.23,<5
+Markdown>=3.7,<4

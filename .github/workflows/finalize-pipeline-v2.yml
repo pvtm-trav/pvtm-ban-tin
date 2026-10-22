@@ -1,0 +1,33 @@
+name: Verify Publishing Pipeline v2
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'schemas/**'
+      - 'content/issues/**'
+      - 'content/articles/2026-21/**'
+      - 'content/articles/2026-39/**'
+      - 'scripts/build.py'
+      - 'scripts/validate.py'
+      - 'templates/newsletter.html.j2'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Validate and build issues 21/39
+        run: |
+          python scripts/validate.py 2026-21 2026-39
+          python scripts/build.py 2026-21 2026-39
+          test -f dist/manifest.json
+          test -f dist/SHA256SUMS
+          ! grep -R "legacy_source" content/articles/2026-21 content/articles/2026-39
+          ! grep -F "Số 39-2026" templates/newsletter.html.j2
+          (cd dist && sha256sum -c SHA256SUMS)
