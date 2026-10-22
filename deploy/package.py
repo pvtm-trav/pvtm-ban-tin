@@ -14,7 +14,7 @@ def package(source, output, tag, channel, commit):
         for p in sorted(source.rglob('*')):
             if p.is_symlink(): raise ValueError('Symlink blocked')
             if not p.is_file(): continue
-            if p.name in {'.gitkeep', 'SHA256SUMS'} or re.fullmatch(r'chart[1-5]-source\.xml',p.name): continue
+            if p.name == '.gitkeep' or re.fullmatch(r'chart[1-5]-source\.xml',p.name): continue
             name=p.relative_to(source).as_posix()
             if name == 'web.config' or name.startswith(('admin/','ban-tin-moi/','oauth/')): continue
             if not re.fullmatch(r'[a-zA-Z0-9_./-]+',name) or any(x in {'.','..'} for x in name.split('/')) or p.suffix.lower() not in ALLOWED:
