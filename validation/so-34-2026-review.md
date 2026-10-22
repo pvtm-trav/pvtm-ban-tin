@@ -67,3 +67,15 @@ Chỉ sửa ba lỗi hiển nhiên: củaTrung Quốc → của Trung Quốc; gi
 ## Quy trình còn lại
 
 CI thành công → release preview-<full SHA> → IIS Preview Check rồi Publish (nếu task không tự chạy). Chỉ sau khi duyệt xuất bản rõ ràng mới chuẩn bị commit cuối và Preview lại nếu SHA thay đổi, rồi workflow Publish approved BanTin với đúng SHA/issue_id. Không dùng tự đổi status như tín hiệu đủ để xuất bản trước khi người dùng xem commit cuối.
+
+## Cập nhật ảnh ngày 22/10/2026
+
+Ba ô chờ trên bìa đã được thay bằng ảnh người phụ trách gửi:
+
+| Tên tệp | Vị trí | Chú thích |
+|---|---|---|
+| bt34-2026-bia.jpg | Ảnh lớn trên bìa | Cảng biển và hoạt động vận chuyển hàng hóa |
+| bt34-2026-headline-1-gach-op-lat.jpg | Headline 1 | Dây chuyền sản xuất gạch ốp lát |
+| bt34-2026-headline-2-go-thanh.jpg | Headline 2 | Thanh nẹp định hình; dùng minh họa theo lựa chọn của người phụ trách, không xác nhận vật liệu/xuất xứ qua ảnh |
+
+Mục thiếu ba ảnh bìa/headline ở biên bản trước đã được giải quyết. Không thay đổi nội dung bài, số liệu, ngày phát hành hoặc trạng thái draft. Chỉ tạo Preview mới, chưa duyệt Production.
