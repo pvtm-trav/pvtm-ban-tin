@@ -1,37 +1,27 @@
-name: Finalize Publishing Pipeline v2
+name: Verify Publishing Pipeline v2
 on:
-  push:
-    branches: [feature/publishing-pipeline-v2]
+  pull_request:
+    branches: [main]
     paths:
-      - scripts/finalize_v2.py
-      - .github/workflows/finalize-pipeline-v2.yml
+      - 'schemas/**'
+      - 'content/issues/**'
+      - 'content/articles/2026-21/**'
+      - 'content/articles/2026-39/**'
+      - 'scripts/build.py'
+      - 'scripts/validate.py'
+      - 'templates/newsletter.html.j2'
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
-  finalize:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: feature/publishing-pipeline-v2
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install -r requirements.txt
-      - name: Inline legacy bodies and parameterize template
-        run: python scripts/finalize_v2.py
-      - name: Remove legacy bridge from validator/build
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('scripts/validate.py'); s=p.read_text(encoding='utf-8')
-          s=s.replace("   legacy=meta.get('legacy_source')\n   if not body.strip() and not legacy: errors.append(f'{ap}: nội dung rỗng và không có legacy_source')\n   if legacy and not (ROOT/legacy).is_file(): errors.append(f'{ap}: thiếu legacy_source {legacy}')\n", "   if 'legacy_source' in meta: errors.append(f'{ap}: legacy_source không còn được phép trong Pipeline v2')\n   if not body.strip(): errors.append(f'{ap}: nội dung Markdown rỗng')\n")
-          s=s.replace("    if not body.strip() and legacy:\n     import json; body=json.loads((ROOT/legacy).read_text(encoding='utf-8')).get('body_html','')\n","")
-          p.write_text(s,encoding='utf-8')
-          p=Path('scripts/build.py'); s=p.read_text(encoding='utf-8')
-          s=s.replace("   if not raw.strip() and meta.get('legacy_source'): raw=json.loads((ROOT/meta['legacy_source']).read_text(encoding='utf-8')).get('body_html','')\n","")
-          p.write_text(s,encoding='utf-8')
-          PY
       - name: Validate and build issues 21/39
         run: |
           python scripts/validate.py 2026-21 2026-39
@@ -41,10 +31,3 @@ jobs:
           ! grep -R "legacy_source" content/articles/2026-21 content/articles/2026-39
           ! grep -F "Số 39-2026" templates/newsletter.html.j2
           (cd dist && sha256sum -c SHA256SUMS)
-      - name: Commit finalized migration
-        run: |
-          git config user.name "pvtm-pipeline-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add content/articles/2026-21 content/articles/2026-39 templates/newsletter.html.j2 scripts/validate.py scripts/build.py
-          git diff --cached --quiet || git commit -m "PR-v2.2: inline articles and remove legacy bridge"
-          git push origin HEAD:feature/publishing-pipeline-v2
