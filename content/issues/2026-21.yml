@@ -1,0 +1,30 @@
+schema_version: 2
+id: 2026-21
+number: 21
+year: 2026
+release_date: null
+status: published
+title: Bản tin Phòng vệ thương mại & Cảnh báo sớm
+cover:
+  hero: /assets/issues/so-21-2026/cover.jpg
+  hero_mode: offset
+  hero_top_mm: -22.5
+  headline_articles:
+  - '01'
+  - '04'
+  feature_images:
+  - /assets/issues/so-21-2026/feature-1.png
+  - /assets/issues/so-21-2026/feature-2.jpg
+sections:
+- id: domestic
+  title: TIN TRONG NƯỚC
+  articles: ['01']
+- id: foreign
+  title: TIN NƯỚC NGOÀI
+  articles: ['02', '03', '04', '05', '06', '07']
+- id: trade
+  title: THÔNG TIN XUẤT NHẬP KHẨU
+  articles: ['08']
+publication:
+  html: true
+  pdf: true
