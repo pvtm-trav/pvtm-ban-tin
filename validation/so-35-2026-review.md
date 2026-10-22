@@ -62,3 +62,15 @@ xẩy ra → xảy ra; sản phầm → sản phẩm; đối với sợ polyeste
 ## Giới hạn triển khai
 
 Chỉ release Preview. Không xác nhận IIS đã cập nhật trước khi có log máy chủ/HTTP. Production số 34 đã có release trong phiên trước nhưng chưa có log Publish IIS cuối; không tự khẳng định số 34 đã lên trang chính.
+
+## Cập nhật ảnh ngày 22/10/2026
+
+Đã nhận đủ ba ảnh và thay ba ô chờ bìa:
+
+| Tên tệp sử dụng | Vị trí | Chú thích |
+|---|---|---|
+| bt35-2026-bia.jpg | Ảnh lớn bìa | Cảng biển; chuẩn hóa tên từ bt35-2026-bia.jpg.jpg, giữ nguyên ảnh |
+| bt35-2026-headline-1-ad24.png | Headline 1 | Dây cáp thép, ảnh người phụ trách chỉ định cho AD24 |
+| bt35-2026-headline-2-soi-polyester.jpg | Headline 2 | Dây chuyền sản xuất sợi, ảnh người phụ trách chỉ định |
+
+Các ghi chú thiếu ba ảnh ở trên là trạng thái trước cập nhật và đã được giải quyết. Không thay nội dung, số liệu, ngày phát hành hoặc trạng thái draft. Chỉ tạo Preview mới.
