@@ -4,6 +4,7 @@ on:
     branches: [feature/publishing-pipeline-v2]
     paths:
       - scripts/finalize_v2.py
+      - .github/workflows/finalize-pipeline-v2.yml
 permissions:
   contents: write
 jobs:
@@ -39,7 +40,7 @@ jobs:
           test -f dist/SHA256SUMS
           ! grep -R "legacy_source" content/articles/2026-21 content/articles/2026-39
           ! grep -F "Số 39-2026" templates/newsletter.html.j2
-          sha256sum -c dist/SHA256SUMS
+          (cd dist && sha256sum -c SHA256SUMS)
       - name: Commit finalized migration
         run: |
           git config user.name "pvtm-pipeline-bot"
