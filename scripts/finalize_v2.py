@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Finalize PR-v2.2: inline legacy JSON bodies into Markdown and remove issue-specific chrome."""
+"""Finalize PR-v2.2: inline legacy JSON bodies into Markdown and remove issue-specific chrome.
+One-time migration; safe to re-run.
+"""
 from __future__ import annotations
 import json,re
 from pathlib import Path
@@ -10,11 +12,9 @@ ISSUES=('2026-21','2026-39')
 
 def clean_html(raw:str)->str:
     root=LH.fragment_fromstring(raw or '<p></p>',create_parent='div')
-    # The shared template owns category/title chrome. Keep substantive article content only.
     for node in list(root.cssselect('.screen-category,.section-header,h1.article-title')):
         parent=node.getparent()
         if parent is not None: parent.remove(node)
-    # Legacy importer wrapped every Word block in data-source-block divs. Unwrap them.
     for node in list(root.xpath('.//div[@data-source-block]')):
         parent=node.getparent()
         if parent is None: continue
@@ -24,7 +24,6 @@ def clean_html(raw:str)->str:
         for child in list(node):
             node.remove(child); parent.insert(idx,child); idx+=1
         parent.remove(node)
-    # Remove empty wrapper divs left by the legacy importer.
     for node in reversed(list(root.xpath('.//div'))):
         if not node.attrib and not (node.text or '').strip() and len(node)==0:
             parent=node.getparent()
