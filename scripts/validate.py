@@ -43,12 +43,9 @@ def validate_issue(path,schema):
    if meta.get('id')!=expected_id: errors.append(f'{ap}: id phải là {expected_id}')
    if not str(meta.get('title','')).strip(): errors.append(f'{ap}: thiếu title')
    if meta.get('category')!=section['title']: errors.append(f"{ap}: category phải là {section['title']}")
-   legacy=meta.get('legacy_source')
-   if not body.strip() and not legacy: errors.append(f'{ap}: nội dung rỗng và không có legacy_source')
-   if legacy and not (ROOT/legacy).is_file(): errors.append(f'{ap}: thiếu legacy_source {legacy}')
+   if 'legacy_source' in meta: errors.append(f'{ap}: legacy_source không còn được phép trong Pipeline v2')
+   if not body.strip(): errors.append(f'{ap}: nội dung Markdown rỗng')
    try:
-    if not body.strip() and legacy:
-     import json; body=json.loads((ROOT/legacy).read_text(encoding='utf-8')).get('body_html','')
     frag=LH.fragment_fromstring(body or '<p></p>',create_parent='div')
     if frag.xpath('.//script|.//iframe|.//object|.//embed'): errors.append(f'{ap}: chỉ cho phép HTML tĩnh')
     for el in frag.iter():

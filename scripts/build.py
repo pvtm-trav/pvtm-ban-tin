@@ -28,7 +28,6 @@ def issue_model(path):
  for section in issue['sections']:
   for short in section['articles']:
    meta,raw=split_md(ROOT/'content'/'articles'/issue['id']/f'{short}.md')
-   if not raw.strip() and meta.get('legacy_source'): raw=json.loads((ROOT/meta['legacy_source']).read_text(encoding='utf-8')).get('body_html','')
    a={**meta,'short_id':short,'html':render_body(raw),'anchor':f'article-{len(articles)+1}'}; articles.append(a); by_short[short]=a
  cover=issue['cover']; heads=cover['headline_articles']; images=cover['feature_images']
  compat={**issue,'hero':cover['hero'],'hero_top_mm':cover.get('hero_top_mm',-76.3),'headline1':by_short[heads[0]]['title'],'headline2':by_short[heads[1]]['title'],'image1':images[0],'image2':images[1]}
