@@ -1,0 +1,33 @@
+{
+  "id": "so-38-2026",
+  "number": 38,
+  "year": 2026,
+  "release_date": null,
+  "status": "draft",
+  "articles": [
+    "2026-38-01",
+    "2026-38-02",
+    "2026-38-03",
+    "2026-38-04",
+    "2026-38-05",
+    "2026-38-06",
+    "2026-38-07",
+    "2026-38-08",
+    "2026-38-09",
+    "2026-38-10"
+  ],
+  "headline1": "Ấn Độ khởi xướng điều tra chống bán phá giá và chống trợ cấp đối với ống đồng rãnh trong từ Việt Nam, Trung Quốc và Thái Lan",
+  "headline2": "Cảnh báo đối với mặt hàng ruy băng trang trí bằng nhựa xuất khẩu vào thị trường Hoa Kỳ",
+  "toc_pages": {
+    "article-1": 3,
+    "article-2": 5,
+    "article-3": 7,
+    "article-4": 8,
+    "article-5": 10,
+    "article-6": 12,
+    "article-7": 14,
+    "article-8": 16,
+    "article-9": 18,
+    "article-10": 21
+  }
+}
