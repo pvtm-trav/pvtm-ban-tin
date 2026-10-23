@@ -1,0 +1,22 @@
+{
+  "issue": "so-38-2026",
+  "version": "20261020-review1",
+  "publication_status": "review-required",
+  "blockers": [
+    "F01 chart5 conflicts with table and prose",
+    "F03 missing product photographs",
+    "Confirm issue number/year"
+  ],
+  "files": [
+    {
+      "name": "so-38-2026.html",
+      "sha256": "d1d357dd5a643467289dcbc232795837cafae7763dcaf259901011d38526cab9",
+      "bytes": 1764752
+    },
+    {
+      "name": "so-38-2026.pdf",
+      "sha256": "9947f16f3c114c2a5065547c82ed7d2b3dd72f77cb90d28c91cbfa86c948cc73",
+      "bytes": 789220
+    }
+  ]
+}
