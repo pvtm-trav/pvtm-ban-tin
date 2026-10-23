@@ -2,11 +2,30 @@
 [CmdletBinding()]
 param([ValidateSet('Check','Publish')][string]$Mode='Check',
       [ValidateSet('Preview','Production')][string]$Channel='Preview',
-      [string]$WorkRoot='C:\BanTinAgent', [string]$ReleaseTag)
+      [string]$WorkRoot='C:\BanTinAgent', [string]$ReleaseTag,
+      [string]$ApprovedCommit, [string]$ApprovalPhrase,
+      [string]$HealthHost='bantin.trav.gov.vn',
+      [ValidateRange(1,65535)][int]$HealthHttpsPort=8443,
+      [string]$PublicAddress='113.164.228.22')
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
+# Exact user approval is required for each production write, including task runs.
+# Construct the Vietnamese phrase without relying on a UTF-8 BOM in PowerShell 5.1.
+$requiredApproval='DUY'+[char]0x1EC6+'T XU'+[char]0x1EA4+'T B'+[char]0x1EA2+'N'
+if($Mode -eq 'Publish' -and $Channel -eq 'Production') {
+    if($ApprovalPhrase -cne $requiredApproval -or $ApprovedCommit -cnotmatch '^[a-f0-9]{40}$' -or -not $ReleaseTag) {
+        throw 'Production requires explicit approval phrase, full ApprovedCommit, and ReleaseTag.'
+    }
+}
+if($HealthHost -notmatch '^[a-zA-Z0-9.-]+$') { throw 'Invalid health hostname' }
+$parsedAddress=$null
+if(-not [Net.IPAddress]::TryParse($PublicAddress,[ref]$parsedAddress) -or $parsedAddress.AddressFamily -ne [Net.Sockets.AddressFamily]::InterNetwork) { throw 'Invalid public IPv4 address' }
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
-$Target=if($Channel -eq 'Production') {'C:\Web\bantin'} else {'C:\Web\bantin\ban-tin-moi'}
+$WebRoot='C:\Web\bantin'
+$Target=if($Channel -eq 'Production') {$WebRoot} else {Join-Path $WebRoot 'ban-tin-moi'}
+$webBase=[IO.Path]::GetFullPath($WebRoot).TrimEnd('\')+'\'
+$workBase=[IO.Path]::GetFullPath($WorkRoot).TrimEnd('\')+'\'
+if($workBase.StartsWith($webBase,[StringComparison]::OrdinalIgnoreCase)) { throw 'WorkRoot must be outside the website' }
 $Repo='pvtm-trav/pvtm-ban-tin'
 $headers=@{'User-Agent'='BanTinAgent/1.0'}
 New-Item -ItemType Directory -Force -Path $WorkRoot | Out-Null
@@ -38,6 +57,35 @@ try {
         }
         return $full
     }
+    function Test-WebsiteFile([string]$Relative,[string]$ExpectedHash) {
+        $prefix=if($Channel -eq 'Production') {'/'} else {'/ban-tin-moi/'}
+        $path=$prefix+$Relative+'?bantin_verify='+[guid]::NewGuid().ToString('N')
+        foreach($endpoint in @("http://${HealthHost}:80","https://${HealthHost}:$HealthHttpsPort")) {
+            $url=$endpoint+$path
+            $response=Invoke-WebRequest -Uri $url -UseBasicParsing -MaximumRedirection 0 -Headers @{'Cache-Control'='no-cache';'Accept-Encoding'='identity'} -TimeoutSec 15
+            if([int]$response.StatusCode -ne 200) { throw "Health status failed: $url" }
+            $stream=$response.RawContentStream; $stream.Position=0
+            $sha=[Security.Cryptography.SHA256]::Create()
+            try { $actual=([BitConverter]::ToString($sha.ComputeHash($stream))).Replace('-','').ToLowerInvariant() }
+            finally { $sha.Dispose(); $stream.Dispose() }
+            if($actual -ne $ExpectedHash) { throw "Health content mismatch: $url" }
+            Log "Health OK status=200 sha256=$actual url=$url"
+        }
+        # A per-request connection override preserves the hostname/SNI and normal
+        # certificate validation. It does not edit hosts, DNS, SSL, or IIS bindings.
+        $body=Join-Path $session ([guid]::NewGuid().ToString('N')+'.health-body')
+        $url='https://'+$HealthHost+$path
+        $resolve=$HealthHost+':443:'+$PublicAddress
+        $status=(& curl.exe --noproxy '*' --resolve $resolve --connect-timeout 5 --max-time 20 --silent --show-error --fail --header 'Accept-Encoding: identity' --header 'Cache-Control: no-cache' --output $body --write-out '%{http_code}' $url 2>&1 | Out-String).Trim()
+        if($LASTEXITCODE -ne 0 -or $status -ne '200') { throw "Public HTTPS failed: $url status=$status" }
+        if((Get-FileHash -LiteralPath $body -Algorithm SHA256).Hash.ToLowerInvariant() -ne $ExpectedHash) { throw "Public HTTPS content mismatch: $url" }
+        Log "Public HTTPS OK status=200 url=$url"
+    }
+    function Test-PublishedWebsite {
+        foreach($file in @($manifest.files | Where-Object {$_.path -match '^[a-zA-Z0-9_-]+\.html$'})) {
+            Test-WebsiteFile $file.path $file.sha256
+        }
+    }
     $endpoint='https://api.github.com/repos/'+$Repo+'/releases/latest'
     if($Channel -eq 'Preview' -and -not $ReleaseTag) { $endpoint='https://api.github.com/repos/'+$Repo+'/releases?per_page=30' }
     if($ReleaseTag) { $endpoint='https://api.github.com/repos/'+$Repo+'/releases/tags/'+[uri]::EscapeDataString($ReleaseTag) }
@@ -58,6 +106,7 @@ try {
     if($manifest.schema -ne 2 -or $manifest.channel -ne $expectedChannel -or $manifest.commit -notmatch '^[a-f0-9]{40}$' -or $manifest.tag -ne $release.tag_name -or $manifest.zip_sha256 -notmatch '^[a-f0-9]{64}$') { throw 'Invalid manifest' }
     if($Channel -eq 'Preview' -and $release.tag_name -ne ('preview-'+$manifest.commit)) { throw 'Preview commit mismatch' }
     if($Channel -eq 'Production' -and -not $release.tag_name.EndsWith($manifest.commit.Substring(0,12))) { throw 'Approval commit mismatch' }
+    if($Mode -eq 'Publish' -and $Channel -eq 'Production' -and $ApprovedCommit -cne $manifest.commit) { throw 'Full approved commit mismatch' }
     $zip=Join-Path $session 'site.zip'; Download $bundle[0].browser_download_url $zip
     if((Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant() -ne $manifest.zip_sha256) { throw 'ZIP checksum mismatch' }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -94,22 +143,46 @@ try {
     }
     $changes | Format-Table -AutoSize
     Log "$Mode channel=$Channel commit=$($manifest.commit) tag=$($release.tag_name) changes=$($changes.Count)"
-    if($Mode -eq 'Check') { Log 'Check complete. Website unchanged.'; return }
-    if($changes.Count -eq 0) { Log 'Already matches release; no changes.'; return }
+    # Detect an unhealthy endpoint before changing any website file.
+    $currentIndex=Join-Path $Target 'index.html'
+    if(Test-Path -LiteralPath $currentIndex) { Test-WebsiteFile 'index.html' ((Get-FileHash -LiteralPath $currentIndex -Algorithm SHA256).Hash.ToLowerInvariant()) }
+    if($Mode -eq 'Check') { Log 'Check complete. Website unchanged; current index health verified.'; return }
+    if($changes.Count -eq 0) { Test-PublishedWebsite; Log 'Already matches release; website health verified.'; return }
     $backup=Join-Path $WorkRoot ('backups\'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N'))
     New-Item -ItemType Directory -Path $backup | Out-Null
+    # Preserve and verify the complete website, including protected server files.
+    # Rollback below restores only files changed by this particular transaction.
+    $snapshot=Join-Path $backup 'website-snapshot'
+    New-Item -ItemType Directory -Path $snapshot | Out-Null
+    $websiteItems=@(Get-ChildItem -LiteralPath $WebRoot -Recurse -Force)
+    if(@($websiteItems | Where-Object {$_.Attributes -band [IO.FileAttributes]::ReparsePoint}).Count) { throw 'Website snapshot contains reparse points' }
+    $snapshotFiles=@()
+    foreach($item in @($websiteItems | Where-Object {-not $_.PSIsContainer})) {
+        $relative=$item.FullName.Substring($WebRoot.TrimEnd('\').Length+1)
+        $saved=Join-Path $snapshot $relative
+        $hash=(Get-FileHash -LiteralPath $item.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $saved) | Out-Null
+        Copy-Item -LiteralPath $item.FullName -Destination $saved
+        if((Get-FileHash -LiteralPath $saved -Algorithm SHA256).Hash.ToLowerInvariant() -ne $hash) { throw "Snapshot checksum mismatch: $relative" }
+        $snapshotFiles+=[pscustomobject]@{path=$relative;sha256=$hash}
+    }
+    $snapshotFiles | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $backup 'snapshot-files.json') -Encoding UTF8
     $journal=@()
+    $restoreHashes=@{}
     # Back up every affected file BEFORE changing any destination.
     foreach($change in $changes) {
         $dest=Safe-Path $Target $change.path
         if($change.action -eq 'UPDATE') {
+            $restoreHashes[$change.path]=(Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash.ToLowerInvariant()
             $saved=Safe-Path $backup $change.path
             New-Item -ItemType Directory -Force -Path (Split-Path $saved -Parent) | Out-Null
             Copy-Item -LiteralPath $dest -Destination $saved
+            if((Get-FileHash -LiteralPath $saved -Algorithm SHA256).Hash.ToLowerInvariant() -ne $restoreHashes[$change.path]) { throw "Backup checksum mismatch: $($change.path)" }
         }
         $journal+=$change
     }
     $journal | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $backup 'journal.json') -Encoding UTF8
+    $restoreHashes | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $backup 'restore-hashes.json') -Encoding UTF8
     $applied=@()
     try {
         # Publish index last. Preserve all old files absent from this package.
@@ -122,24 +195,26 @@ try {
         foreach($f in $manifest.files) {
             if((Get-FileHash -LiteralPath (Safe-Path $Target $f.path) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $f.sha256) { throw 'Post-copy checksum mismatch' }
         }
+        # Health checks belong to the transaction: any failure triggers rollback.
+        Test-PublishedWebsite
     } catch {
         $original=$_; $rollbackErrors=@()
         [array]::Reverse($applied)
         foreach($change in $applied) {
             try {
                 $dest=Safe-Path $Target $change.path
-                if($change.action -eq 'UPDATE') { Copy-Item -LiteralPath (Safe-Path $backup $change.path) -Destination $dest -Force }
+                if($change.action -eq 'UPDATE') {
+                    Copy-Item -LiteralPath (Safe-Path $backup $change.path) -Destination $dest -Force
+                    if((Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash.ToLowerInvariant() -ne $restoreHashes[$change.path]) { throw "Rollback checksum mismatch: $($change.path)" }
+                }
                 elseif(Test-Path -LiteralPath $dest) { Remove-Item -LiteralPath $dest -Force }
             } catch { $rollbackErrors+=$_.Exception.Message }
         }
-        Log "Rollback errors: $($rollbackErrors -join '; ')"; throw $original
+        $result=[ordered]@{status=if($rollbackErrors.Count){'rollback_failed'}else{'rolled_back'};commit=$manifest.commit;tag=$release.tag_name;channel=$Channel;target=$Target;failure=$original.Exception.Message;rollback_errors=$rollbackErrors;time_utc=[DateTime]::UtcNow.ToString('o')}
+        $result | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $backup 'result.json') -Encoding UTF8
+        Log "Rollback status=$($result.status) errors=$($rollbackErrors -join '; ')"; throw $original
     }
     Log "Published $($release.tag_name). Backup=$backup"
-    # HTTP availability is reported separately; a proxy failure must not undo valid files.
-    try {
-        $url=if($Channel -eq 'Production') {'https://bantin.trav.gov.vn/'} else {'https://bantin.trav.gov.vn/ban-tin-moi/'}
-        $r=Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 30
-        Log "HTTP check: $($r.StatusCode)"
-    } catch { Log "HTTP check requires review: $($_.Exception.Message)" }
+    [ordered]@{status='published';commit=$manifest.commit;tag=$release.tag_name;channel=$Channel;target=$Target;time_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $backup 'result.json') -Encoding UTF8
 } catch { Write-Error $_; exit 1 }
 finally { if($null -ne $lock) { $lock.Dispose() } }
