@@ -32,3 +32,8 @@ Hai bảng và năm biểu đồ giữ vị trí Word. XML cache nguyên gốc v
 ## Kiểm tra thực hiện
 
 Đối chiếu đủ 11 bài với Word Final, không thiếu đoạn; hai bảng đối chiếu từng ô; năm biểu đồ và ảnh nội bộ có đủ; liên kết mục lục có đích; thứ tự chuyên mục đúng yêu cầu. Build thành công. Proof A4 font thay thế: 34 trang, chưa xác minh bản in font chuẩn.
+
+## Chỉnh sửa Preview theo phản hồi
+
+- Headline 2 dùng ảnh vừa gửi: mặt hàng lốp cao su dùng cho xe buýt hoặc xe tải(1).webp; xuất PNG lossless tyres-headline.png để tăng tương thích hiển thị và có đường dẫn mới tránh cache cũ. Không thay đổi nội dung ảnh.
+- Hai tiêu đề bìa căn giữa theo chiều dọc trong ô; line-height 1.5 (hiểu yêu cầu giãn dòng 1,5), giữ nguyên tiêu đề.
