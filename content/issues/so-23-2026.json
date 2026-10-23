@@ -1,0 +1,31 @@
+{
+  "id": "so-23-2026",
+  "number": 23,
+  "year": 2026,
+  "release_date": null,
+  "status": "draft",
+  "articles": [
+    "2026-23-01",
+    "2026-23-02",
+    "2026-23-03",
+    "2026-23-04",
+    "2026-23-05",
+    "2026-23-06",
+    "2026-23-07",
+    "2026-23-08",
+    "2026-23-09"
+  ],
+  "headline1": "Bộ Công Thương rà soát cuối kỳ biện pháp chống bán phá giá đối với vật liệu hàn nhập khẩu từ Ma-lai-xi-a, Thái Lan và Trung Quốc",
+  "headline2": "Tình hình xuất khẩu mặt hàng ống thép hàn các-bon vào thị trường Ca-na-đa",
+  "toc_pages": {
+    "article-1": 3,
+    "article-2": 4,
+    "article-3": 5,
+    "article-4": 7,
+    "article-5": 9,
+    "article-6": 10,
+    "article-7": 12,
+    "article-8": 14,
+    "article-9": 16
+  }
+}
