@@ -26,6 +26,10 @@ jobs:
           shutil.copy2(src/'so-14-2026.html',dst/'so-14-2026.html')
           shutil.copy2('deploy/previews/so-14-index.html',dst/'index.html')
           shutil.copytree(src/'assets/issues/so-14-2026',dst/'assets/issues/so-14-2026')
+          (dst/'assets/fonts').mkdir(parents=True,exist_ok=True)
+          shutil.copy2(src/'assets/fonts/Anton.ttf',dst/'assets/fonts/Anton.ttf')
+          (dst/'assets/fonts').mkdir(parents=True,exist_ok=True)
+          shutil.copy2(src/'assets/fonts/Anton.ttf',dst/'assets/fonts/Anton.ttf')
           for f in ['asset-02.jpg','asset-06.png']:
               shutil.copy2(src/'assets'/f,dst/'assets'/f)
           (dst/'so-14-preview-version.json').write_text(json.dumps({'issue_id':'so-14-2026','commit':os.environ['GITHUB_SHA'],'channel':'preview'}))

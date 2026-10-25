@@ -8,7 +8,7 @@ Nguồn: 230426_BT014_Draft.docx. Ngày phát hành chính thức chưa xác nh�
 
 - 14 bài: 7 tin trong nước, 6 tin nước ngoài, 1 bài thông tin xuất nhập khẩu.
 - 3 bảng và 5 biểu đồ, dữ liệu lấy từ Word/OOXML, không điền ô trống thành 0.
-- 44 trang A4, gồm bìa, mục lục, 41 trang nội dung và trang cuối.
+- 38 trang A4 khi in; màn hình hiển thị 14 bài liền mạch, cùng bìa, mục lục và trang cuối như mẫu 39.
 - Không thiếu, trùng hoặc thay đổi văn bản tại các đoạn/bảng đã trích xuất từ Word. Tiêu đề chuyên mục chỉ dùng làm cấu trúc, không lặp vào thân bài.
 - Nguồn của bảng/biểu đồ căn giữa. Dòng tổng hợp nguồn bài viết căn phải.
 - Ảnh không có trong Word; ảnh bổ sung từ Internet được ghi nguồn trong photo-sources.json và thuộc tính title.
@@ -36,3 +36,11 @@ Nguồn: 230426_BT014_Draft.docx. Ngày phát hành chính thức chưa xác nh�
 | chart5.svg | Bài mặt bích | Việt Nam 2T/2025–2T/2026; Word/S&P Global |
 
 Ranh giới: không có phê duyệt Production. Khi commit thay đổi phải tạo lại Preview để duyệt đúng SHA cuối.
+
+## Đối chiếu lại mẫu 39 ngày 25/10/2026
+
+Đã thay bản chia cứng 44 trang bằng cấu trúc bài liền mạch của mẫu 39 hiện hành. Giữ nguyên stylesheet mẫu và chỉ thêm quy tắc nhận diện nguồn, ảnh bìa và bản nháp.
+
+Kiểm tra Chrome cùng viewport 1100px xác nhận 8 nhóm thông số trùng mẫu: font số báo Anton, masthead Arial, headline bìa Times New Roman, mục lục 12pt, tiêu đề bài Arial 16pt, nội dung Times New Roman 14pt và cách đoạn 3mm, footer Arial 10pt, nhãn chuyên mục nền xanh 65mm. Font Anton đã tải thành công.
+
+Đã tính lại số trang mục lục theo đích liên kết trong PDF Chrome A4: 3, 4, 7, 10, 12, 14, 16, 18, 20, 22, 23, 24, 26, 27. Bản in có 38 trang.
