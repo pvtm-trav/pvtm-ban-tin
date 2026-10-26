@@ -1,0 +1,24 @@
+{
+  "id": "so-13-2026",
+  "number": 13,
+  "year": 2026,
+  "status": "draft",
+  "date": "",
+  "hero": "/assets/issues/so-13-2026/cover.jpg",
+  "headline1": "Úc thông báo nhận được yêu cầu ban hành áp thuế chống bán phá giá đối với sản phẩm thép mạ kẽm nhập khẩu từ Việt Nam và Hàn Quốc (Zinc coated (galvanised) steel)",
+  "headline2": "Tình hình xuất khẩu mặt hàng sợi polyester có độ bền cao vào thị trường EU",
+  "image1": "/assets/issues/so-13-2026/feature1.jpg",
+  "image2": "/assets/issues/so-13-2026/feature2.jpg",
+  "articles": [
+    "2026-13-01",
+    "2026-13-02",
+    "2026-13-03",
+    "2026-13-04",
+    "2026-13-05",
+    "2026-13-06",
+    "2026-13-07",
+    "2026-13-08",
+    "2026-13-09",
+    "2026-13-10"
+  ]
+}
