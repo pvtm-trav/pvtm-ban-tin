@@ -1,0 +1,44 @@
+name: Prepare issue 07 isolated Preview
+on:
+  push:
+    branches: ['preview/so-07-2026']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - run: python build.py --include-drafts
+      - name: Verify issue 07 against Word extraction
+        run: python validation/check-so-07.py
+      - name: Isolate issue 07 and preserve the preview catalog
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil,json,os
+          src=Path('public'); dst=Path('preview07'); dst.mkdir()
+          shutil.copy2(src/'so-07-2026.html',dst/'so-07-2026.html')
+          shutil.copy2('deploy/previews/so-07-index.html',dst/'index.html')
+          shutil.copytree(src/'assets/issues/so-07-2026',dst/'assets/issues/so-07-2026')
+          (dst/'assets/fonts').mkdir(parents=True,exist_ok=True)
+          shutil.copy2(src/'assets/fonts/Anton.ttf',dst/'assets/fonts/Anton.ttf')
+          (dst/'assets/fonts').mkdir(parents=True,exist_ok=True)
+          shutil.copy2(src/'assets/fonts/Anton.ttf',dst/'assets/fonts/Anton.ttf')
+          for f in ['asset-02.jpg','asset-06.png']:
+              shutil.copy2(src/'assets'/f,dst/'assets'/f)
+          (dst/'so-07-preview-version.json').write_text(json.dumps({'issue_id':'so-07-2026','commit':os.environ['GITHUB_SHA'],'channel':'preview'}))
+          shutil.copy2('validation/so-07-review.md',dst/'so-07-review.txt')
+          PY
+      - name: Package Preview
+        run: python deploy/package.py --source preview07 --channel preview --commit "$GITHUB_SHA" --tag "preview-$GITHUB_SHA"
+      - name: Publish Preview prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "preview-$GITHUB_SHA" release-output/bantin-site.zip release-output/release.json --prerelease --target "$GITHUB_SHA" --title "Issue 07 Preview $GITHUB_SHA" --notes "Isolated issue 07. Not approved for Production. See so-07-review.txt."
