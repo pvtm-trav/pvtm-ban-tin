@@ -23,3 +23,30 @@ Nguồn: 29102026_BT41.docx. Ngày phát hành chưa được xác nhận, khôn
 
 ## Phạm vi triển khai
 Chỉ cập nhật bản xem thử /ban-tin-moi/ sau backup. Không thay đổi trang chính, IIS, SSL, DNS, Firewall hoặc web.config. Chỉ xuất bản chính thức khi nhận DUYỆT XUẤT BẢN.
+
+## Bảng ánh xạ ảnh
+
+| Tệp | Vị trí | Chú thích |
+|---|---|---|
+| cover.jpg | Bìa | Cảng biển và tàu container; Journal of Commerce |
+| steel.jpg | Headline 1; bài 1 | Thép cán nguội dạng cuộn; VCM Steel Sheet |
+| pork.jpg | Bài 2 | Các sản phẩm thịt lợn; Knorr Philippines |
+| pet.jpg | Bài 3 | Hạt nhựa PET; Henan Chemger / Made-in-China |
+| foil.jpg | Bài 4 | Lá nhôm tạo hình nguội dùng cho bao bì dược phẩm; HW Aluminum |
+| titanium.jpg | Bài 5 | Bột titan đi-ô-xít; Chemi Enterprises |
+| cannabis.jpg | Bài 6 | Cơ sở trồng cần sa phục vụ y tế tại Úc; ABC News |
+| octg.jpg | Bài 7 | Ống thép dùng trong ngành dầu khí; Cangzhou Steel Pipe Group |
+| galvanized.jpg | Bài 8 | Thép mạ kẽm dạng cuộn; Made-in-China |
+| stainless.jpg | Bài 9 | Thép không gỉ cán nguội; JMX Steel / Made-in-China |
+| pencils.jpg | Headline 2; bài 10 | Bút chì gỗ; The Little Wooden Peg |
+
+## Đã kiểm chứng ngày 30/10/2026
+
+- Đối chiếu toàn bộ đoạn văn và ô bảng với Word: đạt, không thiếu nội dung.
+- 25 tệp triển khai kiểm tra SHA-256 trước và sau copy: đạt.
+- HTTP loopback: 200. HTTPS mở trên trình duyệt: đúng số 41/2026.
+- DOM trình duyệt: 10 article, 2 table, 22 vị trí ảnh (gồm logo/QR, ảnh lặp và 5 biểu đồ), tất cả tải thành công sau khi trang hoàn tất tải.
+- Sao lưu: `C:\BanTinAgent\backup\preview-so41-20261030-104013`.
+- Nội dung triển khai từ commit `6bd073711ee4a1669870346ad23152b7f2fddb0e`, nhánh `preview/so-41-2026-20261030`; PR #34 ở trạng thái draft.
+- URL: https://bantin.trav.gov.vn/ban-tin-moi/so-41-2026.html
+- Chỉ cập nhật index và số 41 trong thư mục preview, không sửa production hay cấu hình máy chủ.
