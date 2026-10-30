@@ -3,7 +3,7 @@
   "number": 41,
   "year": 2026,
   "release_date": null,
-  "status": "draft",
+  "status": "published",
   "articles": [
     "2026-41-01",
     "2026-41-02",
@@ -36,8 +36,9 @@
     "date": "2026-10-30"
   },
   "deployment": {
-    "status": "rolled_back",
-    "reason": "HTTPS verification failed: server certificate chain trust error and external request timeouts",
-    "backup": "C:\\BanTinAgent\\backup\\production-so41-20261030-151735"
+    "status": "published",
+    "backup": "C:\\BanTinAgent\\backup\\production-so41-20261030-224709",
+    "verification": "HTTP 200; public HTTPS 200; all 10 files SHA256 matched; index lists issue 41",
+    "date": "2026-10-30"
   }
 }
