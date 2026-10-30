@@ -3,7 +3,7 @@
   "number": 41,
   "year": 2026,
   "release_date": null,
-  "status": "published",
+  "status": "draft",
   "articles": [
     "2026-41-01",
     "2026-41-02",
@@ -34,5 +34,10 @@
     "approved_preview_commit": "7a42fc8e274f949008b3c435850744942ac078f0",
     "instruction": "Xuất bản sang bantin.trav.gov.vn",
     "date": "2026-10-30"
+  },
+  "deployment": {
+    "status": "rolled_back",
+    "reason": "HTTPS verification failed: server certificate chain trust error and external request timeouts",
+    "backup": "C:\\BanTinAgent\\backup\\production-so41-20261030-151735"
   }
 }
