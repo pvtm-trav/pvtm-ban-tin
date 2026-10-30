@@ -3,7 +3,7 @@
   "number": 41,
   "year": 2026,
   "release_date": null,
-  "status": "draft",
+  "status": "published",
   "articles": [
     "2026-41-01",
     "2026-41-02",
@@ -29,5 +29,10 @@
     "article-8": 14,
     "article-9": 16,
     "article-10": 18
+  },
+  "approval": {
+    "approved_preview_commit": "7a42fc8e274f949008b3c435850744942ac078f0",
+    "instruction": "Xuất bản sang bantin.trav.gov.vn",
+    "date": "2026-10-30"
   }
 }
