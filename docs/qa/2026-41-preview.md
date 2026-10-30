@@ -50,3 +50,9 @@ Chỉ cập nhật bản xem thử /ban-tin-moi/ sau backup. Không thay đổi 
 - Nội dung triển khai từ commit `6bd073711ee4a1669870346ad23152b7f2fddb0e`, nhánh `preview/so-41-2026-20261030`; PR #34 ở trạng thái draft.
 - URL: https://bantin.trav.gov.vn/ban-tin-moi/so-41-2026.html
 - Chỉ cập nhật index và số 41 trong thư mục preview, không sửa production hay cấu hình máy chủ.
+
+## Điều chỉnh theo yêu cầu mới nhất
+- Headline 1 đổi sang bài PET (bài 3), ảnh headline dùng pet.jpg và liên kết #article-3.
+- Xóa toàn bộ 10 ảnh minh họa và chú thích trong thân bài; giữ 2 bảng và 5 biểu đồ nguồn Word.
+- Giữ ảnh bìa và hai ảnh headline. Mục lục tính lại sau khi bỏ ảnh.
+- Các ghi nhận ảnh thân bài phía trên là lịch sử trước điều chỉnh này.
