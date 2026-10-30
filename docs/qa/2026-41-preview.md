@@ -56,3 +56,9 @@ Chỉ cập nhật bản xem thử /ban-tin-moi/ sau backup. Không thay đổi 
 - Xóa toàn bộ 10 ảnh minh họa và chú thích trong thân bài; giữ 2 bảng và 5 biểu đồ nguồn Word.
 - Giữ ảnh bìa và hai ảnh headline. Mục lục tính lại sau khi bỏ ảnh.
 - Các ghi nhận ảnh thân bài phía trên là lịch sử trước điều chỉnh này.
+
+## Điều chỉnh tiếp theo theo ảnh đánh dấu
+- Thêm riêng ảnh thép cán nguội vào cuối bài 1; khung ảnh cao 112mm, vừa trang A4. Các bài còn lại không có ảnh minh họa.
+- Nội dung chính: chữ 14pt.
+- Bài bút chì: khôi phục mục 1 (mô tả), 2 (xuất khẩu thế giới), 3 (xuất khẩu Việt Nam), 4 (cảnh báo); quy trình và thị trường đánh số phụ 1.1, 1.2.
+- Đã dựng lại mục lục và kiểm tra mục lục một trang, bài 1 một trang A4.
