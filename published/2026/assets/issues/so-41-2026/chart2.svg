@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="532.856325pt" height="336.24pt" viewBox="0 0 532.856325 336.24" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-30T03:33:08.253553</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 336.24 
+L 532.856325 336.24 
+L 532.856325 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 168.12 39.384 
+C 138.92899 39.384 110.588422 49.312634 87.779524 67.529913 
+C 64.970626 85.747192 49.022414 111.191644 42.569175 139.660412 
+C 36.115937 168.129181 39.533685 197.963466 52.257885 224.235311 
+C 64.982085 250.507155 86.271331 271.685767 112.609114 284.272913 
+L 168.12 168.12 
+z
+" style="fill: #00506b"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 112.609106 284.272907 
+C 124.44647 289.930128 137.07942 293.744706 150.069545 295.584264 
+C 163.059671 297.423822 176.254979 297.266842 189.197667 295.118781 
+L 168.12 168.12 
+z
+" style="fill: #42658d"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 189.197667 295.118781 
+C 199.381821 293.428545 209.325817 290.519404 218.815142 286.454109 
+C 228.304468 282.388814 237.270408 277.196823 245.519657 270.990065 
+L 168.12 168.12 
+z
+" style="fill: #b31c27"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 245.519657 270.990065 
+C 253.008448 265.355481 259.859636 258.919937 265.951271 251.79796 
+C 272.042906 244.675982 277.33864 236.910094 281.74429 228.638408 
+L 168.12 168.12 
+z
+" style="fill: #c49b44"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 281.74429 228.638408 
+C 285.854988 220.920509 289.168656 212.803831 291.63393 204.41418 
+C 294.099204 196.024531 295.703269 187.40549 296.421279 178.69066 
+L 168.12 168.12 
+z
+" style="fill: #79a6b5"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 296.421279 178.69066 
+C 297.023784 171.377754 296.999966 164.026706 296.350063 156.717859 
+C 295.700169 149.409012 294.426576 142.169092 292.543204 135.077228 
+L 168.12 168.12 
+z
+" style="fill: #7b8097"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 292.543204 135.077228 
+C 290.792211 128.483826 288.519889 122.040027 285.747716 115.806732 
+C 282.975542 109.573436 279.712279 103.570335 275.988775 97.854184 
+L 168.12 168.12 
+z
+" style="fill: #bb7272"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 275.988775 97.854184 
+C 273.160095 93.511723 270.071791 89.344059 266.740689 85.373897 
+C 263.409587 81.403735 259.841765 77.638326 256.056744 74.098266 
+L 168.12 168.12 
+z
+" style="fill: #647350"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 256.056744 74.098266 
+C 252.321453 70.604714 248.381285 67.336863 244.257206 64.312085 
+C 240.133126 61.287308 235.832453 58.510975 231.37807 55.997859 
+L 168.12 168.12 
+z
+" style="fill: #a5b4c4"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 231.37807 55.997859 
+C 227.109602 53.589636 222.707067 51.427118 218.192023 49.520888 
+C 213.676979 47.614657 209.056788 45.967814 204.353964 44.588391 
+L 168.12 168.12 
+z
+" style="fill: #8a7060"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 204.353964 44.588391 
+C 198.477238 42.864646 192.484956 41.562447 186.422855 40.691731 
+C 180.360754 39.821015 174.24427 39.384 168.119957 39.384 
+L 168.12 168.12 
+z
+" style="fill: #c6c6c6"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="72.701372" y="149.250093" transform="rotate(-0 72.701372 149.250093)">42.9%</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="154.401655" y="267.752216" transform="rotate(-0 154.401655 267.752216)">9.7%</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="206.648308" y="260.813294" transform="rotate(-0 206.648308 260.813294)">7.6%</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="242.471764" y="234.474623" transform="rotate(-0 242.471764 234.474623)">6.9%</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="261.990598" y="198.462906" transform="rotate(-0 261.990598 198.462906)">6.5%</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="265.574843" y="162.213701" transform="rotate(-0 265.574843 162.213701)">5.4%</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="257.517045" y="131.121247" transform="rotate(-0 257.517045 131.121247)">5.1%</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="182.030171" y="74.033892" transform="rotate(-0 182.030171 74.033892)">4.5%</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_13">
+     <path d="M 331.6032 94.909062 
+L 351.6032 94.909062 
+L 351.6032 87.909062 
+L 331.6032 87.909062 
+z
+" style="fill: #00506b"/>
+    </g>
+    <g id="text_9">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="94.909062" transform="rotate(-0 359.6032 94.909062)">Việt Nam: 42.9%</text>
+    </g>
+    <g id="patch_14">
+     <path d="M 331.6032 110.440312 
+L 351.6032 110.440312 
+L 351.6032 103.440312 
+L 331.6032 103.440312 
+z
+" style="fill: #42658d"/>
+    </g>
+    <g id="text_10">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="110.440312" transform="rotate(-0 359.6032 110.440312)">Trung Quốc: 9.7%</text>
+    </g>
+    <g id="patch_15">
+     <path d="M 331.6032 125.118437 
+L 351.6032 125.118437 
+L 351.6032 118.118437 
+L 331.6032 118.118437 
+z
+" style="fill: #b31c27"/>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="125.118437" transform="rotate(-0 359.6032 125.118437)">In-đô-nê-xi-a: 7.6%</text>
+    </g>
+    <g id="patch_16">
+     <path d="M 331.6032 139.796562 
+L 351.6032 139.796562 
+L 351.6032 132.796562 
+L 331.6032 132.796562 
+z
+" style="fill: #c49b44"/>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="139.796562" transform="rotate(-0 359.6032 139.796562)">Bra-xin: 6.9%</text>
+    </g>
+    <g id="patch_17">
+     <path d="M 331.6032 154.874687 
+L 351.6032 154.874687 
+L 351.6032 147.874687 
+L 331.6032 147.874687 
+z
+" style="fill: #79a6b5"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="154.874687" transform="rotate(-0 359.6032 154.874687)">Phi-líp-pin: 6.5%</text>
+    </g>
+    <g id="patch_18">
+     <path d="M 331.6032 169.952812 
+L 351.6032 169.952812 
+L 351.6032 162.952812 
+L 331.6032 162.952812 
+z
+" style="fill: #7b8097"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="169.952812" transform="rotate(-0 359.6032 169.952812)">Pháp: 5.4%</text>
+    </g>
+    <g id="patch_19">
+     <path d="M 331.6032 184.630937 
+L 351.6032 184.630937 
+L 351.6032 177.630937 
+L 331.6032 177.630937 
+z
+" style="fill: #bb7272"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="184.630937" transform="rotate(-0 359.6032 184.630937)">Thái Lan: 5.1%</text>
+    </g>
+    <g id="patch_20">
+     <path d="M 331.6032 199.309062 
+L 351.6032 199.309062 
+L 351.6032 192.309062 
+L 331.6032 192.309062 
+z
+" style="fill: #647350"/>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="199.309062" transform="rotate(-0 359.6032 199.309062)">Pa-kít-xtan: 3.8%</text>
+    </g>
+    <g id="patch_21">
+     <path d="M 331.6032 214.387187 
+L 351.6032 214.387187 
+L 351.6032 207.387187 
+L 331.6032 207.387187 
+z
+" style="fill: #a5b4c4"/>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="214.387187" transform="rotate(-0 359.6032 214.387187)">Hoa Kỳ: 3.8%</text>
+    </g>
+    <g id="patch_22">
+     <path d="M 331.6032 231.47 
+L 351.6032 231.47 
+L 351.6032 224.47 
+L 331.6032 224.47 
+z
+" style="fill: #8a7060"/>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="231.47" transform="rotate(-0 359.6032 231.47)">Ấn Độ: 3.6%</text>
+    </g>
+    <g id="patch_23">
+     <path d="M 331.6032 247.00125 
+L 351.6032 247.00125 
+L 351.6032 240.00125 
+L 331.6032 240.00125 
+z
+" style="fill: #c6c6c6"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="247.00125" transform="rotate(-0 359.6032 247.00125)">Các nguồn cung ứng khác: 4.5%</text>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

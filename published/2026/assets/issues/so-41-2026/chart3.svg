@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="532.856325pt" height="336.24pt" viewBox="0 0 532.856325 336.24" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-30T03:33:08.316859</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 336.24 
+L 532.856325 336.24 
+L 532.856325 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 168.12 39.384 
+C 142.607104 39.384 117.660996 46.968217 96.465397 61.168724 
+C 75.269797 75.36923 58.766456 95.555077 49.061597 119.150067 
+C 39.356737 142.745057 36.88156 168.70083 41.951956 193.704808 
+C 47.022352 218.708786 59.413037 241.650006 77.542663 259.600619 
+L 168.12 168.12 
+z
+" style="fill: #00506b"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 77.542656 259.600617 
+C 87.167292 269.13022 98.235837 277.081501 110.339213 283.16059 
+C 122.442585 289.23968 135.429841 293.370781 148.821046 295.401218 
+L 168.12 168.12 
+z
+" style="fill: #42658d"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 148.821046 295.401218 
+C 162.13739 297.420307 175.688512 297.337175 188.979082 295.15486 
+C 202.269652 292.972554 215.135766 288.717998 227.107247 282.546668 
+L 168.12 168.12 
+z
+" style="fill: #b31c27"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 227.107247 282.546668 
+C 235.852741 278.038342 244.052621 272.542236 251.546161 266.166076 
+C 259.039702 259.789917 265.777625 252.575637 271.627836 244.664664 
+L 168.12 168.12 
+z
+" style="fill: #c49b44"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 271.627836 244.664664 
+C 277.177962 237.159483 281.895384 229.072868 285.696819 220.547569 
+C 289.498253 212.02227 292.361202 203.108754 294.235135 193.964355 
+L 168.12 168.12 
+z
+" style="fill: #79a6b5"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 294.235135 193.964355 
+C 295.743239 186.605118 296.604294 179.128014 296.808449 171.618616 
+C 297.012611 164.109218 296.559075 156.596312 295.453044 149.166007 
+L 168.12 168.12 
+z
+" style="fill: #7b8097"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 295.453044 149.166007 
+C 294.437065 142.340637 292.873952 135.608022 290.778798 129.033201 
+C 288.683644 122.458381 286.063233 116.062627 282.942915 109.90783 
+L 168.12 168.12 
+z
+" style="fill: #bb7272"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 282.942915 109.90783 
+C 280.142197 104.383441 276.946436 99.06837 273.380548 94.004047 
+C 269.81466 88.939724 265.887936 84.139346 261.630978 79.640319 
+L 168.12 168.12 
+z
+" style="fill: #647350"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 261.630978 79.640319 
+C 257.797707 75.589074 253.705241 71.791238 249.379401 68.270776 
+C 245.05356 64.750313 240.503483 61.514674 235.757992 58.584347 
+L 168.12 168.12 
+z
+" style="fill: #a5b4c4"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 235.757992 58.584347 
+C 232.291411 56.443744 228.725197 54.468923 225.071327 52.666527 
+C 221.417457 50.864131 217.680052 49.236202 213.871796 47.788249 
+L 168.12 168.12 
+z
+" style="fill: #8a7060"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 213.871796 47.788249 
+C 206.580016 45.015815 199.051334 42.911906 191.378654 41.502496 
+C 183.705973 40.093086 175.921012 39.384 168.119957 39.384 
+L 168.12 168.12 
+z
+" style="fill: #c6c6c6"/>
+   </g>
+   <g id="matplotlib.axis_1"/>
+   <g id="matplotlib.axis_2"/>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="77.635607" y="133.662242" transform="rotate(-0 77.635607 133.662242)">37.6%</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="124.206602" y="258.310227" transform="rotate(-0 124.206602 258.310227)">10.0%</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="183.972902" y="267.425871" transform="rotate(-0 183.972902 267.425871)">10.0%</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="231.523921" y="245.394361" transform="rotate(-0 231.523921 245.394361)">7.3%</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="257.47838" y="210.724328" transform="rotate(-0 257.47838 210.724328)">6.9%</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="265.923224" y="173.538277" transform="rotate(-0 265.923224 173.538277)">5.6%</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="261.34067" y="141.173365" transform="rotate(-0 261.34067 141.173365)">5.1%</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="248.117991" y="114.551214" transform="rotate(-0 248.117991 114.551214)">4.6%</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="229.87711" y="94.993937" transform="rotate(-0 229.87711 94.993937)">4.1%</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="185.796531" y="74.650062" transform="rotate(-0 185.796531 74.650062)">5.8%</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_13">
+     <path d="M 331.6032 96.111406 
+L 351.6032 96.111406 
+L 351.6032 89.111406 
+L 331.6032 89.111406 
+z
+" style="fill: #00506b"/>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="96.111406" transform="rotate(-0 359.6032 96.111406)">Việt Nam: 37.6%</text>
+    </g>
+    <g id="patch_14">
+     <path d="M 331.6032 111.189531 
+L 351.6032 111.189531 
+L 351.6032 104.189531 
+L 331.6032 104.189531 
+z
+" style="fill: #42658d"/>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="111.189531" transform="rotate(-0 359.6032 111.189531)">Phi-líp-pin: 10.0%</text>
+    </g>
+    <g id="patch_15">
+     <path d="M 331.6032 126.720781 
+L 351.6032 126.720781 
+L 351.6032 119.720781 
+L 331.6032 119.720781 
+z
+" style="fill: #b31c27"/>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="126.720781" transform="rotate(-0 359.6032 126.720781)">Trung Quốc: 10.0%</text>
+    </g>
+    <g id="patch_16">
+     <path d="M 331.6032 141.398906 
+L 351.6032 141.398906 
+L 351.6032 134.398906 
+L 331.6032 134.398906 
+z
+" style="fill: #c49b44"/>
+    </g>
+    <g id="text_14">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="141.398906" transform="rotate(-0 359.6032 141.398906)">In-đô-nê-xi-a: 7.3%</text>
+    </g>
+    <g id="patch_17">
+     <path d="M 331.6032 156.077031 
+L 351.6032 156.077031 
+L 351.6032 149.077031 
+L 331.6032 149.077031 
+z
+" style="fill: #79a6b5"/>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="156.077031" transform="rotate(-0 359.6032 156.077031)">Bra-xin: 6.9%</text>
+    </g>
+    <g id="patch_18">
+     <path d="M 331.6032 171.155156 
+L 351.6032 171.155156 
+L 351.6032 164.155156 
+L 331.6032 164.155156 
+z
+" style="fill: #7b8097"/>
+    </g>
+    <g id="text_16">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="171.155156" transform="rotate(-0 359.6032 171.155156)">Hoa Kỳ: 5.6%</text>
+    </g>
+    <g id="patch_19">
+     <path d="M 331.6032 186.233281 
+L 351.6032 186.233281 
+L 351.6032 179.233281 
+L 331.6032 179.233281 
+z
+" style="fill: #bb7272"/>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="186.233281" transform="rotate(-0 359.6032 186.233281)">Pháp: 5.1%</text>
+    </g>
+    <g id="patch_20">
+     <path d="M 331.6032 200.911406 
+L 351.6032 200.911406 
+L 351.6032 193.911406 
+L 331.6032 193.911406 
+z
+" style="fill: #647350"/>
+    </g>
+    <g id="text_18">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="200.911406" transform="rotate(-0 359.6032 200.911406)">Thái Lan: 4.6%</text>
+    </g>
+    <g id="patch_21">
+     <path d="M 331.6032 215.589531 
+L 351.6032 215.589531 
+L 351.6032 208.589531 
+L 331.6032 208.589531 
+z
+" style="fill: #a5b4c4"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="215.589531" transform="rotate(-0 359.6032 215.589531)">Pa-kit-xtan: 4.1%</text>
+    </g>
+    <g id="patch_22">
+     <path d="M 331.6032 230.267656 
+L 351.6032 230.267656 
+L 351.6032 223.267656 
+L 331.6032 223.267656 
+z
+" style="fill: #8a7060"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="230.267656" transform="rotate(-0 359.6032 230.267656)">Ma-lai-xi-a: 3.0%</text>
+    </g>
+    <g id="patch_23">
+     <path d="M 331.6032 245.798906 
+L 351.6032 245.798906 
+L 351.6032 238.798906 
+L 331.6032 238.798906 
+z
+" style="fill: #c6c6c6"/>
+    </g>
+    <g id="text_21">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="359.6032" y="245.798906" transform="rotate(-0 359.6032 245.798906)">Các nguồn cung ứng khác: 5.8%</text>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

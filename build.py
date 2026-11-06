@@ -70,6 +70,10 @@ def main():
             (out/filename).write_text(result,encoding='utf-8');HTML(filename=str(out/filename)).write_pdf(out/(issue['id']+'.pdf'))
         cards.append(f'<li><a href="{filename}">Số {issue["number"]}/{issue["year"]}</a>'+(' · BẢN NHÁP' if issue['status']!='published' else '')+'</li>')
     index='<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bản tin PVTM &amp; CBS</title><style>body{max-width:900px;margin:60px auto;padding:24px;font:18px/1.6 Arial;color:#003366}h1{font-size:28px}li{margin:16px 0}a{color:#003366}</style><h1>BẢN TIN PHÒNG VỆ THƯƠNG MẠI &amp; CẢNH BÁO SỚM</h1><ul>'+''.join(cards)+'</ul>'+('' if cards else '<p>Chưa có số bản tin được phát hành.</p>')+'<p><a href="admin/">Đăng nhập quản trị</a></p></html>'
+    # Preserve approved IIS editions, PDFs and assets on production rebuilds.
+    if not args.include_drafts:
+        published=ROOT/'published/2026'
+        if published.exists():shutil.copytree(published,out,dirs_exist_ok=True)
     # Keep the approved archive homepage for production; preview still lists drafts.
     approved_home=ROOT/'templates/homepage-approved.html'
     if approved_home.exists() and not args.include_drafts:
