@@ -1,0 +1,31 @@
+[
+  {
+    "file": "cover.jpg",
+    "caption": "Cảng biển và tàu container",
+    "credit": "Journal of Commerce",
+    "url": "https://www.joc.com/images/phoenix/5195363_1.0.jpg",
+    "size": [
+      1600,
+      900
+    ],
+    "rights": "Chưa xác nhận quyền tái sử dụng; dùng cho bản xem thử."
+  },
+  {
+    "file": "pet.jpg",
+    "caption": "Hạt nhựa PET",
+    "credit": "Henan Chemger / Made-in-China",
+    "url": "https://image.made-in-china.com/2f0j00GeCcasuBJLpY/Jade-Polyethylene-Terephthalate-White-Transparent-Pet-Resin-Bottle-Grade-Price-CAS-25038-59-9.webp",
+    "size": [
+      1000,
+      1000
+    ],
+    "rights": "Chưa xác nhận quyền tái sử dụng; dùng cho bản xem thử."
+  },
+  {
+    "file": "bicycle.jpg",
+    "caption": "Xe đạp trẻ em có bánh phụ",
+    "credit": "Relaxacare",
+    "url": "https://www.relaxacare.ca/cdn/shop/products/16-inch-kids-bike-with-removable-training-wheels-384581.jpg?v=1698947631",
+    "rights": "Chưa xác nhận quyền tái sử dụng; bản xem thử"
+  }
+]
