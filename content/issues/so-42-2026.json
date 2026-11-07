@@ -1,0 +1,33 @@
+{
+  "id": "so-42-2026",
+  "number": 42,
+  "year": 2026,
+  "release_date": null,
+  "status": "published",
+  "articles": [
+    "2026-42-01",
+    "2026-42-02",
+    "2026-42-03",
+    "2026-42-04",
+    "2026-42-05",
+    "2026-42-06",
+    "2026-42-07",
+    "2026-42-08",
+    "2026-42-09",
+    "2026-42-10"
+  ],
+  "headline1": "Hoa Kỳ chấm dứt rà soát hành chính lần thứ nhất thuế chống bán phá giá và chống trợ cấp đối với đĩa giấy từ Việt Nam",
+  "headline2": "Cảnh báo đối với mặt hàng xe đạp trẻ em xuất khẩu vào thị trường Mê-hi-cô",
+  "toc_pages": {
+    "article-1": 3,
+    "article-2": 4,
+    "article-3": 5,
+    "article-4": 6,
+    "article-5": 7,
+    "article-6": 8,
+    "article-7": 9,
+    "article-8": 10,
+    "article-9": 11,
+    "article-10": 12
+  }
+}

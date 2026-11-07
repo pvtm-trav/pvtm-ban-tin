@@ -1,0 +1,60 @@
+[
+  {
+    "file": "cover.jpg",
+    "caption": "Cảng biển và tàu container",
+    "credit": "Journal of Commerce",
+    "url": "https://www.joc.com/images/phoenix/5195363_1.0.jpg",
+    "size": [
+      1600,
+      900
+    ],
+    "rights": "Chưa xác nhận quyền tái sử dụng; dùng cho bản xem thử."
+  },
+  {
+    "file": "pet.jpg",
+    "caption": "Hạt nhựa PET",
+    "credit": "Henan Chemger / Made-in-China",
+    "url": "https://image.made-in-china.com/2f0j00GeCcasuBJLpY/Jade-Polyethylene-Terephthalate-White-Transparent-Pet-Resin-Bottle-Grade-Price-CAS-25038-59-9.webp",
+    "size": [
+      1000,
+      1000
+    ],
+    "rights": "Chưa xác nhận quyền tái sử dụng; dùng cho bản xem thử."
+  },
+  {
+    "file": "bicycle.jpg",
+    "caption": "Xe đạp trẻ em có bánh phụ",
+    "credit": "Relaxacare",
+    "url": "https://www.relaxacare.ca/cdn/shop/products/16-inch-kids-bike-with-removable-training-wheels-384581.jpg?v=1698947631",
+    "rights": "Chưa xác nhận quyền tái sử dụng; bản xem thử"
+  },
+  {
+    "file": "plates.jpg",
+    "url": "https://morrowpack.com/cdn/shop/files/WhitePaperLunchPlate.jpg?v=1752592473&width=533",
+    "caption": "Đĩa giấy",
+    "credit": "Morrow Eco-Packaging"
+  },
+  {
+    "file": "nonwoven.jpg",
+    "url": "https://image.made-in-china.com/2f0j00QwYcPfOnEWqv/China-Cheap-Non-Woven-Cloth-Fabric-Rolls-100-Polypropylene-PP-Recycled-TNT-Non-Woven-Cloth-Non-Woven-Fabric-Roll-Used-for-Eco-Bags.jpg",
+    "caption": "Vải không dệt dạng cuộn",
+    "credit": "Zhejiang Huachen / Made-in-China"
+  },
+  {
+    "file": "strand.jpg",
+    "url": "https://image.made-in-china.com/2f0j00fzcbhlGMsWuH/15-24mm-PC-Strand-15-24mm-Prestressed-Concrete-Steel-Strand.jpg",
+    "caption": "Cáp thép dự ứng lực",
+    "credit": "Capstone Steel / Made-in-China"
+  },
+  {
+    "file": "galvanized.jpg",
+    "caption": "Thép mạ kẽm dạng cuộn",
+    "credit": "Made-in-China",
+    "url": "https://image.made-in-china.com/2f0j00tlFqsYvZATgA/Spgc-Z350-Galvanized-Steel-Coil-Bright-Large-Zinc-Coated-Z275-Z180-Z90-4ton-Per-Coil-Prime-Hot-Galvanized-Steel-HDG-Coil.webp",
+    "size": [
+      750,
+      750
+    ],
+    "rights": "Chưa xác nhận quyền tái sử dụng; dùng cho bản xem thử."
+  }
+]
