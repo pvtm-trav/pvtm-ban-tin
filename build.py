@@ -39,7 +39,7 @@ def main():
     if out.exists():shutil.rmtree(out)
     out.mkdir();shutil.copytree(ROOT/'assets',out/'assets');shutil.copytree(ROOT/'admin',out/'admin')
     env=Environment(loader=FileSystemLoader(ROOT/'templates'),autoescape=select_autoescape(['html','xml','j2']))
-    template=env.get_template('newsletter.html.j2');cards=[]
+    template=env.get_template('newsletter.html.j2');cards={}
     for path in sorted((ROOT/'content/issues').glob('*.json'),reverse=True):
         issue=read(path)
         if issue['status']!='published' and not args.include_drafts:continue
@@ -68,8 +68,19 @@ def main():
             document=HTML(filename=str(out/filename)).render();pages={k:i+1 for i,p in enumerate(document.pages) for k in p.anchors}
             result=issue_template.render(issue=issue,articles=articles,groups=groups,pages=pages).replace('"/assets/','"assets/').replace('url(/assets/','url(assets/')
             (out/filename).write_text(result,encoding='utf-8');HTML(filename=str(out/filename)).write_pdf(out/(issue['id']+'.pdf'))
-        cards.append(f'<li><a href="{filename}">Số {issue["number"]}/{issue["year"]}</a>'+(' · BẢN NHÁP' if issue['status']!='published' else '')+'</li>')
-    index='<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bản tin PVTM &amp; CBS</title><style>body{max-width:900px;margin:60px auto;padding:24px;font:18px/1.6 Arial;color:#003366}h1{font-size:28px}li{margin:16px 0}a{color:#003366}</style><h1>BẢN TIN PHÒNG VỆ THƯƠNG MẠI &amp; CẢNH BÁO SỚM</h1><ul>'+''.join(cards)+'</ul>'+('' if cards else '<p>Chưa có số bản tin được phát hành.</p>')+'<p><a href="admin/">Đăng nhập quản trị</a></p></html>'
+        status = ' · Bản xem thử' if issue['status'] != 'published' else ''
+        cards[issue['id']] = (int(issue['year']), int(issue['number']), f'<li><a href="{filename}">Số {issue["number"]}/{issue["year"]}</a>{status}</li>')
+    # Retain links to archive editions already served by IIS outside the current source tree.
+    preview_archive = ROOT/'templates/preview-archive.json'
+    if args.include_drafts and preview_archive.exists():
+        for issue_id in read(preview_archive):
+            match = re.fullmatch(r'so-(\d+)-(\d{4})', issue_id)
+            if not match:
+                raise ValueError('Mã số lưu trữ không hợp lệ: '+issue_id)
+            number, year = match.groups()
+            cards.setdefault(issue_id, (int(year), int(number), f'<li><a href="{issue_id}.html">Số {number}/{year}</a></li>'))
+        cards = dict(sorted(cards.items(), key=lambda item: item[1][:2], reverse=True))
+    index='<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bản tin PVTM &amp; CBS</title><style>body{max-width:900px;margin:60px auto;padding:24px;font:18px/1.6 Arial;color:#003366}h1{font-size:28px}li{margin:16px 0}a{color:#003366}</style><h1>BẢN TIN PHÒNG VỆ THƯƠNG MẠI &amp; CẢNH BÁO SỚM</h1><ul>'+''.join(card[2] for card in cards.values())+'</ul>'+('' if cards else '<p>Chưa có số bản tin được phát hành.</p>')+'<p><a href="admin/">Đăng nhập quản trị</a></p></html>'
     # Preserve approved IIS editions, PDFs and assets on production rebuilds.
     if not args.include_drafts:
         published=ROOT/'published/2026'
