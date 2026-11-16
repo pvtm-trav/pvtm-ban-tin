@@ -385,6 +385,55 @@ h1,h2,h3,h4,.article-title,.article-title strong,.back-header,.back-header stron
  .article.paper>.screen-category>span{padding:7px 10px}
  .article.paper>.content-footer{padding:9px 11px;font-size:9pt}
 }
+.article .data-table > .unit{text-align:right!important}
+.article.paper > p:not(.credit):not(.source):not(.visual-source):not(.unit){
+ text-align:justify!important;
+}
+@media print{
+ .article.paper > .screen-category{
+  position:running(bantinHeader);
+  display:flex!important;
+  align-items:flex-end;
+  width:168mm;
+  min-height:0;
+  margin:0;
+  padding:0;
+  background:none;
+  border-bottom:1px solid #8ab4c5;
+ }
+ .article.paper > .screen-category > span{
+  display:block;
+  min-width:0;
+  padding:2mm 4mm;
+  font:700 9pt/1.25 Arial,sans-serif;
+  color:#fff;
+  background:#00506b;
+ }
+}
+
+@page domestic:left, domestic:right {
+ background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22794%22%20height%3D%221123%22%20viewBox%3D%220%200%20210%20297%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%238ec4d7%22%20stroke-width%3D%22.23%22%20opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M%20130%200%20C%20105%2035%2C%20195%2018%2C%20210%2040.0%22%2F%3E%3Cpath%20d%3D%22M%20134%200%20C%20109%2035%2C%20197%2018%2C%20210%2041.7%22%2F%3E%3Cpath%20d%3D%22M%20138%200%20C%20113%2035%2C%20199%2018%2C%20210%2043.4%22%2F%3E%3Cpath%20d%3D%22M%20142%200%20C%20117%2035%2C%20201%2018%2C%20210%2045.1%22%2F%3E%3Cpath%20d%3D%22M%20146%200%20C%20121%2035%2C%20203%2018%2C%20210%2046.8%22%2F%3E%3Cpath%20d%3D%22M%20150%200%20C%20125%2035%2C%20205%2018%2C%20210%2048.5%22%2F%3E%3Cpath%20d%3D%22M%20154%200%20C%20129%2035%2C%20207%2018%2C%20210%2050.2%22%2F%3E%3Cpath%20d%3D%22M%20158%200%20C%20133%2035%2C%20209%2018%2C%20210%2051.9%22%2F%3E%3Cpath%20d%3D%22M%20162%200%20C%20137%2035%2C%20211%2018%2C%20210%2053.6%22%2F%3E%3Cpath%20d%3D%22M%20166%200%20C%20141%2035%2C%20213%2018%2C%20210%2055.3%22%2F%3E%3Cpath%20d%3D%22M%20170%200%20C%20145%2035%2C%20215%2018%2C%20210%2057.0%22%2F%3E%3Cpath%20d%3D%22M%20174%200%20C%20149%2035%2C%20217%2018%2C%20210%2058.7%22%2F%3E%3Cpath%20d%3D%22M%20178%200%20C%20153%2035%2C%20219%2018%2C%20210%2060.4%22%2F%3E%3Cpath%20d%3D%22M%20182%200%20C%20157%2035%2C%20221%2018%2C%20210%2062.099999999999994%22%2F%3E%3Cpath%20d%3D%22M%20186%200%20C%20161%2035%2C%20223%2018%2C%20210%2063.8%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") -22mm -22mm / 210mm 297mm no-repeat;
+ @top-left{content:none}
+ @top-center{content:element(bantinHeader);width:168mm;height:9mm;margin:8mm 0 5mm;vertical-align:bottom}
+ @bottom-left{content:"BẢN TIN PVTM & CBS";width:80mm;height:11mm;margin:4mm 0 7mm;padding:0 0 0 4mm;background:#00506b;color:#fff;font:700 9pt/1.4 Arial,sans-serif;text-align:left;vertical-align:middle}
+ @bottom-right{content:"Số 43/2026 · Trang " counter(page);width:80mm;height:11mm;margin:4mm 0 7mm;padding:0 4mm 0 0;background:#00506b;color:#fff;font:700 9pt/1.4 Arial,sans-serif;text-align:right;vertical-align:middle}
+}
+
+@page foreign:left, foreign:right {
+ background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22794%22%20height%3D%221123%22%20viewBox%3D%220%200%20210%20297%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%238ec4d7%22%20stroke-width%3D%22.23%22%20opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M%20130%200%20C%20105%2035%2C%20195%2018%2C%20210%2040.0%22%2F%3E%3Cpath%20d%3D%22M%20134%200%20C%20109%2035%2C%20197%2018%2C%20210%2041.7%22%2F%3E%3Cpath%20d%3D%22M%20138%200%20C%20113%2035%2C%20199%2018%2C%20210%2043.4%22%2F%3E%3Cpath%20d%3D%22M%20142%200%20C%20117%2035%2C%20201%2018%2C%20210%2045.1%22%2F%3E%3Cpath%20d%3D%22M%20146%200%20C%20121%2035%2C%20203%2018%2C%20210%2046.8%22%2F%3E%3Cpath%20d%3D%22M%20150%200%20C%20125%2035%2C%20205%2018%2C%20210%2048.5%22%2F%3E%3Cpath%20d%3D%22M%20154%200%20C%20129%2035%2C%20207%2018%2C%20210%2050.2%22%2F%3E%3Cpath%20d%3D%22M%20158%200%20C%20133%2035%2C%20209%2018%2C%20210%2051.9%22%2F%3E%3Cpath%20d%3D%22M%20162%200%20C%20137%2035%2C%20211%2018%2C%20210%2053.6%22%2F%3E%3Cpath%20d%3D%22M%20166%200%20C%20141%2035%2C%20213%2018%2C%20210%2055.3%22%2F%3E%3Cpath%20d%3D%22M%20170%200%20C%20145%2035%2C%20215%2018%2C%20210%2057.0%22%2F%3E%3Cpath%20d%3D%22M%20174%200%20C%20149%2035%2C%20217%2018%2C%20210%2058.7%22%2F%3E%3Cpath%20d%3D%22M%20178%200%20C%20153%2035%2C%20219%2018%2C%20210%2060.4%22%2F%3E%3Cpath%20d%3D%22M%20182%200%20C%20157%2035%2C%20221%2018%2C%20210%2062.099999999999994%22%2F%3E%3Cpath%20d%3D%22M%20186%200%20C%20161%2035%2C%20223%2018%2C%20210%2063.8%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") -22mm -22mm / 210mm 297mm no-repeat;
+ @top-left{content:none}
+ @top-center{content:element(bantinHeader);width:168mm;height:9mm;margin:8mm 0 5mm;vertical-align:bottom}
+ @bottom-left{content:"BẢN TIN PVTM & CBS";width:80mm;height:11mm;margin:4mm 0 7mm;padding:0 0 0 4mm;background:#00506b;color:#fff;font:700 9pt/1.4 Arial,sans-serif;text-align:left;vertical-align:middle}
+ @bottom-right{content:"Số 43/2026 · Trang " counter(page);width:80mm;height:11mm;margin:4mm 0 7mm;padding:0 4mm 0 0;background:#00506b;color:#fff;font:700 9pt/1.4 Arial,sans-serif;text-align:right;vertical-align:middle}
+}
+
+@page trade:left, trade:right {
+ background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22794%22%20height%3D%221123%22%20viewBox%3D%220%200%20210%20297%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%238ec4d7%22%20stroke-width%3D%22.23%22%20opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M%20130%200%20C%20105%2035%2C%20195%2018%2C%20210%2040.0%22%2F%3E%3Cpath%20d%3D%22M%20134%200%20C%20109%2035%2C%20197%2018%2C%20210%2041.7%22%2F%3E%3Cpath%20d%3D%22M%20138%200%20C%20113%2035%2C%20199%2018%2C%20210%2043.4%22%2F%3E%3Cpath%20d%3D%22M%20142%200%20C%20117%2035%2C%20201%2018%2C%20210%2045.1%22%2F%3E%3Cpath%20d%3D%22M%20146%200%20C%20121%2035%2C%20203%2018%2C%20210%2046.8%22%2F%3E%3Cpath%20d%3D%22M%20150%200%20C%20125%2035%2C%20205%2018%2C%20210%2048.5%22%2F%3E%3Cpath%20d%3D%22M%20154%200%20C%20129%2035%2C%20207%2018%2C%20210%2050.2%22%2F%3E%3Cpath%20d%3D%22M%20158%200%20C%20133%2035%2C%20209%2018%2C%20210%2051.9%22%2F%3E%3Cpath%20d%3D%22M%20162%200%20C%20137%2035%2C%20211%2018%2C%20210%2053.6%22%2F%3E%3Cpath%20d%3D%22M%20166%200%20C%20141%2035%2C%20213%2018%2C%20210%2055.3%22%2F%3E%3Cpath%20d%3D%22M%20170%200%20C%20145%2035%2C%20215%2018%2C%20210%2057.0%22%2F%3E%3Cpath%20d%3D%22M%20174%200%20C%20149%2035%2C%20217%2018%2C%20210%2058.7%22%2F%3E%3Cpath%20d%3D%22M%20178%200%20C%20153%2035%2C%20219%2018%2C%20210%2060.4%22%2F%3E%3Cpath%20d%3D%22M%20182%200%20C%20157%2035%2C%20221%2018%2C%20210%2062.099999999999994%22%2F%3E%3Cpath%20d%3D%22M%20186%200%20C%20161%2035%2C%20223%2018%2C%20210%2063.8%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") -22mm -22mm / 210mm 297mm no-repeat;
+ @top-left{content:none}
+ @top-center{content:element(bantinHeader);width:168mm;height:9mm;margin:8mm 0 5mm;vertical-align:bottom}
+ @bottom-left{content:"BẢN TIN PVTM & CBS";width:80mm;height:11mm;margin:4mm 0 7mm;padding:0 0 0 4mm;background:#00506b;color:#fff;font:700 9pt/1.4 Arial,sans-serif;text-align:left;vertical-align:middle}
+ @bottom-right{content:"Số 43/2026 · Trang " counter(page);width:80mm;height:11mm;margin:4mm 0 7mm;padding:0 4mm 0 0;background:#00506b;color:#fff;font:700 9pt/1.4 Arial,sans-serif;text-align:right;vertical-align:middle}
+}
 </style></head><body>
 <footer class="page-footer"><span>BẢN TIN PVTM &amp; CBS · Số 43/2026</span><span>www.trav.gov.vn</span><span>Trang <i class="page-number"></i></span></footer>
 <section class="cover paper" id="bia"><header class="cover-top"><div class="agency"><img src="assets/media/1d8c20b58980b2b1.jpg" alt="Logo Bộ Công Thương"><strong>BỘ CÔNG THƯƠNG<br>CỤC PHÒNG VỆ THƯƠNG MẠI</strong></div><div class="issue">SỐ 43.2026</div></header><div class="masthead"><div class="brand-title">BẢN TIN</div><div class="brand-subtitle">PHÒNG VỆ THƯƠNG MẠI &amp; CẢNH BÁO SỚM</div></div><div class="hero"><img class="hero-photo" src="assets/issues/so-43-2026/cover-cang-container.jpg" alt="Cảng biển và tàu container — ảnh minh họa"></div><div class="feature feature-one"><p><a href="#article-2" style="text-decoration:none">♦  {{ issue.headline1 }}</a></p><img src="assets/issues/so-43-2026/van-soi-go.jpg" alt="Ván sợi gỗ — ảnh minh họa"></div><div class="feature feature-two"><img src="assets/issues/so-43-2026/bia-ho-so.jpg" alt="Bìa hồ sơ bằng giấy — ảnh minh họa"><p><a href="#article-9" style="text-decoration:none">♦  {{ issue.headline2 }}</a></p></div><footer class="cover-footer"><div><strong>TRUNG TÂM THÔNG TIN VÀ CẢNH BÁO</strong><br>Số 54 Hai Bà Trưng, Phường Cửa Nam, Thành phố Hà Nội<br>www.trav.gov.vn; E-mail: ciew@moit.gov.vn</div><img src="assets/media/af399a0d12afad56.png" alt="QR website TRAV"></footer></section>
