@@ -46,8 +46,15 @@ jobs:
               f.write(f'RELEASE_TAG=bantin-{issue["year"]}.{issue["number"]}-{sha[:12]}\n')
           PY
       - run: python build.py
-      - name: Package approved commit
-        run: python deploy/package.py --channel production --commit "$GITHUB_SHA" --tag "$RELEASE_TAG"
+      - name: Package approved issue 43 and its index
+        env:
+          ISSUE_ID: ${{ inputs.issue_id }}
+        run: |
+          test "$ISSUE_ID" = so-43-2026
+          mkdir -p production-stage/assets/issues
+          cp "public/index.html" "public/$ISSUE_ID.html" "public/$ISSUE_ID.pdf" production-stage/
+          cp -r "public/assets/issues/$ISSUE_ID" production-stage/assets/issues/
+          python deploy/package.py --source production-stage --channel production --commit "$GITHUB_SHA" --tag "$RELEASE_TAG"
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
