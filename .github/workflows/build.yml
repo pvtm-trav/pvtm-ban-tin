@@ -33,6 +33,9 @@ jobs:
             $null=[System.Management.Automation.Language.Parser]::ParseFile($_.FullName,[ref]$tokens,[ref]$errors)
             if($errors.Count) { throw ($errors | Out-String) }
           }
+      - name: Exercise deployment and rollback in isolated TEMP directories
+        shell: powershell
+        run: powershell.exe -NoProfile -NonInteractive -File deploy/Test-Update-BanTin.ps1
   preview-release:
     if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     needs: [build, powershell-syntax]
